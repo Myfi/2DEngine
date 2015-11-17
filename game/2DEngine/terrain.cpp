@@ -10,7 +10,7 @@ Terrain::Terrain()
 	spriteData.rect.bottom = terrainNS::WIDTH;
 	velocity.x = 0;
 	velocity.y = 0;
-	frameDelay = .1f;
+	frameDelay = .2f;
 	startFrame = 0;
 	endFrame = 4;
 	currentFrame = startFrame;

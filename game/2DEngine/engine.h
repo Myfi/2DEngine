@@ -21,6 +21,7 @@ private:
     Image   background;						// Background image
     Player  character;						// character image     
 	Terrain ground[5];						// ground entity
+    Image   boxTest;                        // a box used for testing
 
 public:
     // Constructor

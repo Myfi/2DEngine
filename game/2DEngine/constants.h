@@ -31,8 +31,8 @@ const char GROUND_IMAGE[] = "pictures\\Grass.png";   // GRASS GROUND
 const char CLASS_NAME[] = "2DEngine";
 const char GAME_TITLE[] = "2DEngine";
 const bool FULLSCREEN = false;              // windowed or fullscreen
-const UINT GAME_WIDTH =  640;               // width of game in pixels
-const UINT GAME_HEIGHT = 480;               // height of game in pixels
+const UINT GAME_WIDTH =  1280;               // width of game in pixels
+const UINT GAME_HEIGHT = 720;               // height of game in pixels
 const float GRAVITY = 1000.0f;
 
 // game

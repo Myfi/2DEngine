@@ -37,6 +37,11 @@ void Engine::initialize(HWND hwnd)
     // character
     if (!character.initialize(this,playerNS::WIDTH,playerNS::HEIGHT,0,&characterTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing character"));
+    // boxTest
+    if (!boxTest.initialize(graphics, terrainNS::WIDTH, terrainNS::HEIGHT, 0, &groundTexture))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing boxTest"));
+    boxTest.setX(0);
+    boxTest.setY(0);
     // terrain
     int dis = 20;
     for (int i = 0; i < 5; ++i)
@@ -60,7 +65,8 @@ void Engine::update()
 {
     if(input->getMouseLButton())
     {
-        MessageBox(NULL, "Hello", "Error", MB_OK);
+        boxTest.setX(input->getMouseX());
+        boxTest.setY(input->getMouseY());
     }
 
     character.update(frameTime);
@@ -116,6 +122,8 @@ void Engine::render()
 	{
 		ground[i].draw();
 	}
+
+    boxTest.draw();
 
     graphics->spriteEnd();                  // end drawing sprites
 }
