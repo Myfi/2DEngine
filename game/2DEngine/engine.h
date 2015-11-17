@@ -19,8 +19,8 @@ private:
     TextureManager characterTexture;		// character texture
 	TextureManager groundTexture;			// ground texture
     Image   background;						// Background image
-    Player character;						// character image     
-	Terrain ground;							// ground image
+    Player  character;						// character image     
+	Terrain ground[5];						// ground entity
 
 public:
     // Constructor

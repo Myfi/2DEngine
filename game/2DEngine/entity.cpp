@@ -15,7 +15,7 @@ Entity::Entity() : Image()
 	deltaV.x = 0;
 	deltaV.y = 0;
 	active = true;
-	collisionType = entityNS::ROTATED_BOX;
+	collisionType = entityNS::BOX;
 	gravity = entityNS::GRAVITY;
 }
 
@@ -52,7 +52,7 @@ void Entity::update(float frameTime)
 // For deciding what kind of collision to implement 
 // ATM: only does box collision; Might do rotated box if necessary
 //==========================================================
-bool Entity::collides(Entity &ent, VECTOR2 &collision)
+int Entity::collides(Entity &ent, VECTOR2 &collision)
 {
 	if (!active || !ent.getActive())
 		return false;
@@ -67,7 +67,11 @@ bool Entity::collides(Entity &ent, VECTOR2 &collision)
 //==========================================================
 // Box collision
 // Called by collides()
-// Returns: true if collision, false if no collision
+// Returns: Returns the side that it collided with
+// Left = 1;
+// Right = 2;
+// Top = 3;
+// Bottom = 4;
 //==========================================================
 bool Entity::collideBox(Entity &ent, VECTOR2 &collision)
 {
@@ -80,9 +84,9 @@ bool Entity::collideBox(Entity &ent, VECTOR2 &collision)
 		(getCenterY() + edge.top*getScale() <= ent.getCenterY() + ent.getEdge().bottom*ent.getScale()))
 	{
 		// collision = *ent.getCenter() - *getCenter();
-		return true;
+		return 1;
 	}
-	return false;
+	return 0;
 }
 
 //==========================================================

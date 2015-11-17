@@ -10,9 +10,9 @@ Terrain::Terrain()
 	spriteData.rect.bottom = terrainNS::WIDTH;
 	velocity.x = 0;
 	velocity.y = 0;
-	frameDelay = 1;
+	frameDelay = .1f;
 	startFrame = 0;
-	endFrame = 0;
+	endFrame = 4;
 	currentFrame = startFrame;
 	edge.top = -terrainNS::HEIGHT /2;             // set collision edges
 	edge.bottom = terrainNS::HEIGHT / 2;

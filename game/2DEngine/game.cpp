@@ -218,6 +218,15 @@ void Game::run(HWND hwnd)
     if (input->isKeyDown(ESC_KEY))
         setDisplayMode(graphicsNS::WINDOW); // set window mode
 
+    // // if Esc key, set window mode
+    // if (input->isKeyDown(ENTER_KEY))
+    // {
+    //     if (paused)
+    //         paused = false;
+    //     else 
+    //         paused = true;
+    // }
+
     // Clear input
     // Call this after all key checks are done
     input->clear(inputNS::KEYS_PRESSED);

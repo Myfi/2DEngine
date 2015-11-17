@@ -81,7 +81,7 @@ public:
 	virtual void activate();
 	virtual void ai(float frameTime, Entity &ent);
 	virtual bool outsidereect(RECT r);
-	virtual bool collides(Entity &ent, VECTOR2 &collisionVector);
+	virtual int collides(Entity &ent, VECTOR2 &collisionVector);
 	void gravityForce(float frameTime);
 	void jump(/*VECTOR2 &collisionVector, Entity &ent*/);
 };

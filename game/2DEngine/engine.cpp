@@ -38,10 +38,16 @@ void Engine::initialize(HWND hwnd)
     if (!character.initialize(this,playerNS::WIDTH,playerNS::HEIGHT,0,&characterTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing character"));
     // terrain
-	if (!ground.initialize(this, terrainNS::WIDTH, terrainNS::HEIGHT, 0, &groundTexture))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ground"));
-    character.setX(GAME_WIDTH/4);                           // Character Starting Position
-    character.setY(GAME_HEIGHT/4);
+    int dis = 20;
+    for (int i = 0; i < 5; ++i)
+    {
+        if (!ground[i].initialize(this, terrainNS::WIDTH, terrainNS::HEIGHT, 5, &groundTexture))
+            throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ground"));
+        ground[i].setX(ground[i].getX() + dis);
+        dis += 20;
+    }
+    character.setX(0);                           // Character Starting Position
+    character.setY(0);
 	character.setVelocity(VECTOR2(0, -playerNS::SPEED));
 
 	return;
@@ -52,38 +58,13 @@ void Engine::initialize(HWND hwnd)
 //=============================================================================
 void Engine::update()
 {
-    VECTOR2 cv;
-	if(input->isKeyDown(CHARACTER_RIGHT_KEY))            // if move right
+    if(input->getMouseLButton())
     {
-		character.setVelocity(VECTOR2(100, character.getVelocity().y));
-    }
-	if (input->isKeyDown(CHARACTER_LEFT_KEY))             // if move left
-    {
-		character.setVelocity(VECTOR2(-100, character.getVelocity().y));
-	}
-
-	if (character.getX() > GAME_WIDTH)               // if off screen right
-		character.setX((float)-character.getWidth());     // position off screen left
-	if (character.getX() < -character.getWidth())         // if off screen left
-		character.setX((float)GAME_WIDTH);           // position off screen right
-
-	// If up key is pressed and the player is not at the bottom of the screen
-	if (input->isKeyDown(CHARACTER_UP_KEY) && character.getY() >= GAME_HEIGHT - playerNS::HEIGHT)
-    {
-		character.jump();
-    }
-	if (input->isKeyDown(CHARACTER_UP_KEY) && character.collides(ground, cv))
-	{
-		character.jump();
-	}
-    if(input->isKeyDown(CHARACTER_DOWN_KEY))             // if move down
-    {
-		character.setVelocity(VECTOR2(0, character.getVelocity().y));
-        //if (character.getY() > GAME_HEIGHT)              // if off screen bottom
-            //character.setY((float)-character.getHeight());    // position off screen top
+        MessageBox(NULL, "Hello", "Error", MB_OK);
     }
 
     character.update(frameTime);
+	ground[0].update(frameTime);
 }
 
 //=============================================================================
@@ -98,17 +79,28 @@ void Engine::ai()
 void Engine::collisions()
 {
 	VECTOR2 cv;
-	if (character.collides(ground, cv) && character.getVelocity().y >= 0)
+	for (int i = 0; i < 5; i++)
 	{
-		character.setVelocity(VECTOR2(character.getVelocity().x, 0));
+		if (character.collides(ground[i], cv))
+		{
+			if ( (character.getY() + playerNS::HEIGHT ) >= ground[i].getY())
+			{
+				character.setX(character.getX());
+				character.setY(character.getY());
+				character.setVelocity(VECTOR2(0, 0));
+                character.setJump(true);
+			}
+			// else {
+			// 	character.setX(character.getX() - 1);
+			// 	character.setY(character.getY());
+			// 	character.setVelocity(VECTOR2(0, 0));
+			// }
+		}
 	}
-	if (character.collides(ground, cv))
-	{
-		character.setVelocity(VECTOR2(0, character.getVelocity().y));
-	}
-		// MessageBox(NULL, "HELLo", "Error", MB_OK);
-		// character.setY(10);
-		// character.setVelocity(VECTOR2(character.getVelocity().x, 0));
+
+	// MessageBox(NULL, "HELLo", "Error", MB_OK);
+	// character.setY(10);
+	// character.setVelocity(VECTOR2(character.getVelocity().x, 0));
 }
 
 //=============================================================================
@@ -120,7 +112,10 @@ void Engine::render()
 
     background.draw();                      
     character.draw();
-	ground.draw();
+	for (int i = 0; i < 5; ++i)
+	{
+		ground[i].draw();
+	}
 
     graphics->spriteEnd();                  // end drawing sprites
 }
