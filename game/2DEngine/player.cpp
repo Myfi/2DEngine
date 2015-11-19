@@ -11,8 +11,8 @@ Player::Player() : Entity()
 	velocity.x = 0;
 	velocity.y = playerNS::SPEED;
 	frameDelay = .1f;
-	startFrame = 0;
-	endFrame = 0;
+	startFrame = 12;
+	endFrame = 12;
 	currentFrame = startFrame;
 	edge.top = -playerNS::HEIGHT / 2;             // set collision edges
 	edge.bottom = playerNS::HEIGHT / 2;
@@ -26,13 +26,24 @@ Player::Player() : Entity()
 void Player::update(float frameTime)
 {
 	VECTOR2 cv;
+	if (getJump())
+	{
+		startFrame = 12;
+		endFrame = 12;
+	}
 	if (input->isKeyDown(CHARACTER_RIGHT_KEY))            // if move right
 	{
 		setVelocity(VECTOR2(100, getVelocity().y));
+		startFrame = 12;
+		endFrame = 13;
+		this->flipHorizontal(false);
 	}
 	if (input->isKeyDown(CHARACTER_LEFT_KEY))             // if move left
 	{
 		setVelocity(VECTOR2(-100, getVelocity().y));
+		startFrame = 12;
+		endFrame = 13;
+		this->flipHorizontal(true);
 	}
 
 	if (getX() > GAME_WIDTH)               // if off screen right
@@ -44,6 +55,8 @@ void Player::update(float frameTime)
 	if (input->isKeyDown(CHARACTER_UP_KEY) && getJump())
 	{
 		jump();
+		startFrame = 1;
+		endFrame = 1;
 		setJump(false);
 	}
 	if (input->isKeyDown(CHARACTER_DOWN_KEY))             // if move down

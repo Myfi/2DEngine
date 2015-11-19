@@ -37,6 +37,8 @@ protected:
 	bool active;
 	DWORD pixelsColliding;
 
+	bool initialized;
+
 	virtual bool collideBox(Entity &ent, VECTOR2 &collisionVector);
 
 public:
@@ -64,6 +66,7 @@ public:
 	virtual float getGravity() const { return gravity; }
 	virtual float getHealth() const { return health; }
 	virtual entityNS::COLLISION_TYPE getCollisionType() { return collisionType; }
+	virtual float getInitialized() const { return initialized; }
 
 	// All of the Sets
 	virtual void setVelocity(VECTOR2 v) { velocity = v; }

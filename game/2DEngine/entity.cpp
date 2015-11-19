@@ -15,6 +15,7 @@ Entity::Entity() : Image()
 	deltaV.x = 0;
 	deltaV.y = 0;
 	active = true;
+	initialized = false;
 	collisionType = entityNS::BOX;
 	gravity = entityNS::GRAVITY;
 }
@@ -28,6 +29,7 @@ void Entity::ai(float frameTime, Entity &ent)
 bool Entity::initialize(Game *gamePtr, int width, int height, int cols, TextureManager *texture)
 {
 	input = gamePtr->getInput();
+	initialized = true;
 	return(Image::initialize(gamePtr->getGraphics(), width, height, cols, texture)); 
 }
 

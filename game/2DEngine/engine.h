@@ -7,6 +7,7 @@
 #include "image.h"
 #include "player.h"
 #include "terrain.h"
+#include "enemy.h"
 
 //=============================================================================
 // This class is the core of the game
@@ -18,10 +19,14 @@ private:
     TextureManager backgroundTexture;		// background texture
     TextureManager characterTexture;		// character texture
 	TextureManager groundTexture;			// ground texture
+    TextureManager enemyTexture;           // enemy texture
     Image   background;						// Background image
     Player  character;						// character image     
-	Terrain ground[5];						// ground entity
+	Terrain ground[764];						// ground entity
     Image   boxTest;                        // a box used for testing
+    Enemy   enemies[100];
+    int current_terrain = 0;
+    int mTime = 0;
 
 public:
     // Constructor
@@ -38,6 +43,8 @@ public:
     void render();      
     void releaseAll();
     void resetAll();
+	int mousepos_to_gridX(int X);
+	int mousepos_to_gridY(int Y);
 };
 
 #endif

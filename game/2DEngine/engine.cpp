@@ -30,18 +30,22 @@ void Engine::initialize(HWND hwnd)
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing character texture"));
 	if (!groundTexture.initialize(graphics, GROUND_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ground texture"));
+    if (!enemyTexture.initialize(graphics, ENEMY_IMAGE))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy texture"));
 
     // background
     if (!background.initialize(graphics,0,0,0,&backgroundTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
     // character
-    if (!character.initialize(this,playerNS::WIDTH,playerNS::HEIGHT,0,&characterTexture))
+    if (!character.initialize(this,playerNS::WIDTH,playerNS::HEIGHT,6,&characterTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing character"));
     // boxTest
     if (!boxTest.initialize(graphics, terrainNS::WIDTH, terrainNS::HEIGHT, 0, &groundTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing boxTest"));
     boxTest.setX(0);
     boxTest.setY(0);
+    if (!enemies[0].initialize(this, enemyNS::WIDTH, enemyNS::HEIGHT, 3, &enemyTexture))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy"));
     // terrain
     int dis = 20;
     for (int i = 0; i < 5; ++i)
@@ -49,6 +53,7 @@ void Engine::initialize(HWND hwnd)
         if (!ground[i].initialize(this, terrainNS::WIDTH, terrainNS::HEIGHT, 5, &groundTexture))
             throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ground"));
         ground[i].setX(ground[i].getX() + dis);
+        current_terrain ++;
         dis += 20;
     }
     character.setX(0);                           // Character Starting Position
@@ -63,14 +68,25 @@ void Engine::initialize(HWND hwnd)
 //=============================================================================
 void Engine::update()
 {
-    if(input->getMouseLButton())
+    if(input->getMouseLButton() && !ground[current_terrain].getInitialized())
+        mTime ++;
+    if (mTime > 0 && !input->getMouseLButton())
     {
-        boxTest.setX(input->getMouseX());
-        boxTest.setY(input->getMouseY());
+        if (!ground[current_terrain].initialize(this, terrainNS::WIDTH, terrainNS::HEIGHT, 5, &groundTexture))
+            throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ground"));
+        // MessageBox(NULL, "HELLo", "Error", MB_OK);
+        ground[current_terrain].setX((input->getMouseX() / 20) * 20);
+		ground[current_terrain].setY((input->getMouseY() / 20) * 20);
+        mTime = 0;
     }
 
+	if (ground[current_terrain].getInitialized())
+	{
+		current_terrain++;
+	}
     character.update(frameTime);
 	ground[0].update(frameTime);
+    enemies[0].update(frameTime);
 }
 
 //=============================================================================
@@ -85,7 +101,7 @@ void Engine::ai()
 void Engine::collisions()
 {
 	VECTOR2 cv;
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < current_terrain; i++)
 	{
 		if (character.collides(ground[i], cv))
 		{
@@ -96,11 +112,6 @@ void Engine::collisions()
 				character.setVelocity(VECTOR2(0, 0));
                 character.setJump(true);
 			}
-			// else {
-			// 	character.setX(character.getX() - 1);
-			// 	character.setY(character.getY());
-			// 	character.setVelocity(VECTOR2(0, 0));
-			// }
 		}
 	}
 
@@ -118,12 +129,13 @@ void Engine::render()
 
     background.draw();                      
     character.draw();
-	for (int i = 0; i < 5; ++i)
+	for (int i = 0; i < current_terrain; ++i)
 	{
 		ground[i].draw();
 	}
-
     boxTest.draw();
+
+    enemies[0].draw();
 
     graphics->spriteEnd();                  // end drawing sprites
 }
@@ -154,4 +166,22 @@ void Engine::resetAll()
 
     Game::resetAll();
     return;
+}
+
+//=============================================================================
+// Used to convert the mouse X coordinate to snap to screen coordinate
+//=============================================================================
+int Engine::mousepos_to_gridX(int x)
+{
+	int correctX = x;
+	return correctX;
+}
+
+//=============================================================================
+// Used to convert the mouse Y coordinate to snap to screen coordinate
+//=============================================================================
+int Engine::mousepos_to_gridY(int y)
+{
+	int correctY = y;
+	return correctY;
 }

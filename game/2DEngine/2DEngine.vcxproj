@@ -77,11 +77,13 @@
     <ClCompile Include="image.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="entity.cpp" />
+    <ClCompile Include="enemy.cpp" />
     <ClCompile Include="terrain.cpp" />
     <ClCompile Include="textureManager.cpp" />
     <ClCompile Include="winmain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="enemy.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="constants.h" />
     <ClInclude Include="engine.h" />
