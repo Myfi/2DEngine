@@ -105,22 +105,29 @@ void Engine::collisions()
 	{
 		if (character.collides(ground[i], cv))
 		{
-			if ( (character.getY() + playerNS::HEIGHT - 2 ) <= ground[i].getY())
+			if ((character.getY() + playerNS::HEIGHT - 2 ) <= ground[i].getY())
 			{
 				character.setX(character.getX());
 				character.setY(character.getY());
 				character.setVelocity(VECTOR2(0, 0));
-                character.setJump(true);
+				character.setJump(true);
+			}
+			else if (character.getY() >= (ground[i].getY() + 20 - 3))
+			{
+				character.setX(character.getX());
+				character.setY(character.getY() + 4);
+				character.setVelocity(VECTOR2(0, 0));
+				character.setJump(true);
 			}
 			else if ((character.getX()) <= ground[i].getX())
 			{
-				character.setX(character.getX() - 1);
+				character.setX(character.getX() - 3);
 				character.setY(character.getY());
 				character.setVelocity(VECTOR2(0, 0));
 			}
 			else if (character.getX() > (ground[i].getX()))
 			{
-				character.setX(character.getX() + 1);
+				character.setX(character.getX() + 3);
 				character.setY(character.getY());
 				character.setVelocity(VECTOR2(0, 0));
 			}
