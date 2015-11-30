@@ -33,23 +33,16 @@ void Player::update(float frameTime)
 	}
 	if (input->isKeyDown(CHARACTER_RIGHT_KEY))            // if move right
 	{
-		setVelocity(VECTOR2(100, getVelocity().y));
 		startFrame = 12;
 		endFrame = 13;
 		this->flipHorizontal(false);
 	}
 	if (input->isKeyDown(CHARACTER_LEFT_KEY))             // if move left
 	{
-		setVelocity(VECTOR2(-100, getVelocity().y));
 		startFrame = 12;
 		endFrame = 13;
 		this->flipHorizontal(true);
 	}
-
-	if (getX() > GAME_WIDTH)               // if off screen right
-		setX((float)- getWidth());     // position off screen left
-	if (getX() < - getWidth())         // if off screen left
-		setX((float)GAME_WIDTH);           // position off screen right
 
 	// If up key is pressed and the player is at the bottom of the screen
 	if (input->isKeyDown(CHARACTER_UP_KEY) && getJump())

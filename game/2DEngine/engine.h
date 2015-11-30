@@ -26,8 +26,12 @@ private:
     Image   boxTest;                        // a box used for testing
 	Terrain endFlag;							// a box used for restarting
     Enemy   enemies[100];
+    Terrain stopBlock[200];
     int current_terrain = 0;
+    int num_of_enemies = 0;
     int mTime = 0;
+    int current_asset = 1;
+    int prevX = 0;
 
 public:
     // Constructor

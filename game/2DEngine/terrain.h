@@ -9,7 +9,7 @@ namespace terrainNS
 	const int WIDTH = 20;
 	const int HEIGHT = 20;
 	// location on screen
-	const int X = GAME_WIDTH / 2;
+	const int X = GAME_WIDTH - 500;
 	const int Y = GAME_HEIGHT - HEIGHT;
 	const float MASS = 1.0e6f;
 }

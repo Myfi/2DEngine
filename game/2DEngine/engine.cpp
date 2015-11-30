@@ -51,7 +51,8 @@ void Engine::initialize(HWND hwnd)
 	endFlag.setX(900);
 	endFlag.setY(GAME_HEIGHT - terrainNS::HEIGHT);
 
-	// terrain
+    num_of_enemies ++;
+    // terrain
     int dis = 20;
     for (int i = 0; i < 5; ++i)
     {
@@ -78,13 +79,27 @@ void Engine::update()
         mTime ++;
     if (mTime > 0 && !input->getMouseLButton())
     {
-        if (!ground[current_terrain].initialize(this, terrainNS::WIDTH, terrainNS::HEIGHT, 5, &groundTexture))
-            throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ground"));
-        // MessageBox(NULL, "HELLo", "Error", MB_OK);
-        ground[current_terrain].setX((input->getMouseX() / 20) * 20);
-		ground[current_terrain].setY((input->getMouseY() / 20) * 20);
-        mTime = 0;
+        if (current_asset == 0) 
+        {
+            if (!ground[current_terrain].initialize(this, terrainNS::WIDTH, terrainNS::HEIGHT, 5, &groundTexture))
+                throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ground"));
+            // MessageBox(NULL, "HELLo", "Error", MB_OK);
+            ground[current_terrain].setX((input->getMouseX() / 20) * 20);
+    		ground[current_terrain].setY((input->getMouseY() / 20) * 20);
+            mTime = 0;
+        }
+        else if (current_asset == 1) 
+        {
+            if (!enemies[num_of_enemies].initialize(this, enemyNS::WIDTH, enemyNS::HEIGHT, 3, &enemyTexture))
+                throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ground"));
+            // MessageBox(NULL, "HELLo", "Error", MB_OK);
+            enemies[num_of_enemies].setX((input->getMouseX() / 20) * 20);
+            enemies[num_of_enemies].setY((input->getMouseY() / 20) * 20);
+
+            mTime = 0;
+        }
     }
+    prevX = character.getY();
 
 	if (character.getX() < GAME_WIDTH / 2 - 16) 
 	{
@@ -142,7 +157,16 @@ void Engine::update()
 		ground[i].update(frameTime);
 	}
 
-    enemies[0].update(frameTime);
+    if (enemies[num_of_enemies].getInitialized())
+    {
+        num_of_enemies++;
+    }
+	// ground[0].update(frameTime);
+    for (int i = 0; i < num_of_enemies; ++i)
+    {
+        enemies[i].update(frameTime);
+    }
+
 }
 
 //=============================================================================
@@ -193,6 +217,21 @@ void Engine::collisions()
 		}
 	}
 
+    for (int i = 0; i < num_of_enemies; i++)
+    {
+        if (character.collides(enemies[i], cv))
+        {
+            if (character.getY() > prevX)
+            {
+                enemies[i].setActive(false);
+                character.jump();
+            } else {
+                // MessageBox(NULL, "I die", "Error", MB_OK);
+				initialize(hwnd);
+            }
+        }
+    }
+
 	// MessageBox(NULL, "HELLo", "Error", MB_OK);
 	// character.setY(10);
 	// character.setVelocity(VECTOR2(character.getVelocity().x, 0));
@@ -208,14 +247,16 @@ void Engine::render()
     background.draw();                      
     character.draw();
 	for (int i = 0; i < current_terrain; ++i)
-	{
-		ground[i].draw();
-	}
-    boxTest.draw();
+        ground[i].draw();
+	
 
 	endFlag.draw();
 
-    enemies[0].draw();
+    for (int i = 0; i < num_of_enemies; ++i)
+    {
+        if (enemies[i].getActive())
+            enemies[i].draw();
+    }
 
     graphics->spriteEnd();                  // end drawing sprites
 }

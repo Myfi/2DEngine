@@ -23,5 +23,6 @@ Terrain::Terrain()
 
 void Terrain::update(float frameTime)
 {
-	Entity::update(frameTime);
+	Entity::update(frameTime);	
+	spriteData.x += frameTime * velocity.x;
 }
