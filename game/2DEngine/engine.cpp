@@ -46,19 +46,25 @@ void Engine::initialize(HWND hwnd)
     boxTest.setY(0);
     if (!enemies[0].initialize(this, enemyNS::WIDTH, enemyNS::HEIGHT, 3, &enemyTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy"));
-    // terrain
+	if (!endFlag.initialize(this, terrainNS::WIDTH, terrainNS::HEIGHT, 5, &groundTexture))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing end flag"));
+	endFlag.setX(900);
+	endFlag.setY(GAME_HEIGHT - terrainNS::HEIGHT);
+
+	// terrain
     int dis = 20;
     for (int i = 0; i < 5; ++i)
     {
         if (!ground[i].initialize(this, terrainNS::WIDTH, terrainNS::HEIGHT, 5, &groundTexture))
             throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ground"));
-        ground[i].setX(ground[i].getX() + dis);
+        ground[i].setX(GAME_WIDTH / 2 + 10 + dis);
         current_terrain ++;
         dis += 20;
     }
     character.setX(0);                           // Character Starting Position
     character.setY(0);
 	character.setVelocity(VECTOR2(0, -playerNS::SPEED));
+
 
 	return;
 }
@@ -80,12 +86,62 @@ void Engine::update()
         mTime = 0;
     }
 
+	if (character.getX() < GAME_WIDTH / 2 - 16) 
+	{
+		if (input->isKeyDown(CHARACTER_RIGHT_KEY))
+		{
+			character.setVelocity(VECTOR2(100, character.getVelocity().y));
+		}
+		else if (input->isKeyDown(CHARACTER_LEFT_KEY))
+		{
+			character.setVelocity(VECTOR2(-100, character.getVelocity().y));
+		}
+	}
+	else
+	{
+		for (int i = 0; i < 5; i++)
+		{
+			if (input->isKeyDown(CHARACTER_RIGHT_KEY))
+			{
+				ground[i].setVelocity(VECTOR2(-100, 100));
+			}
+			else if (input->isKeyDown(CHARACTER_LEFT_KEY))
+			{
+				ground[i].setVelocity(VECTOR2(100, 100));
+			}
+			else
+			{
+				ground[i].setVelocity(VECTOR2(0, 0));
+			}
+		}
+
+		if (input->isKeyDown(CHARACTER_RIGHT_KEY))
+		{
+			endFlag.setVelocity(VECTOR2(-100, 100));
+		}
+		else if (input->isKeyDown(CHARACTER_LEFT_KEY))
+		{
+			endFlag.setVelocity(VECTOR2(100, 100));
+		}
+		else
+		{
+			endFlag.setVelocity(VECTOR2(0, 0));
+		}
+	}
+
+	endFlag.update(frameTime);
+	character.update(frameTime);
+	
 	if (ground[current_terrain].getInitialized())
 	{
 		current_terrain++;
 	}
-    character.update(frameTime);
-	ground[0].update(frameTime);
+
+	for (int i = 0; i < 5; i++) 
+	{
+		ground[i].update(frameTime);
+	}
+
     enemies[0].update(frameTime);
 }
 
@@ -102,7 +158,10 @@ void Engine::collisions()
 {
 	VECTOR2 cv;
 	for (int i = 0; i < current_terrain; i++)
-	{
+	{	
+		if (character.collides(endFlag, cv)) {
+			initialize(hwnd);
+		}
 		if (character.collides(ground[i], cv))
 		{
 			if ((character.getY() + playerNS::HEIGHT - 2 ) <= ground[i].getY())
@@ -153,6 +212,8 @@ void Engine::render()
 		ground[i].draw();
 	}
     boxTest.draw();
+
+	endFlag.draw();
 
     enemies[0].draw();
 

@@ -22,8 +22,9 @@ private:
     TextureManager enemyTexture;           // enemy texture
     Image   background;						// Background image
     Player  character;						// character image     
-	Terrain ground[764];						// ground entity
+	Terrain ground[764];					// ground entity
     Image   boxTest;                        // a box used for testing
+	Terrain endFlag;							// a box used for restarting
     Enemy   enemies[100];
     int current_terrain = 0;
     int mTime = 0;
