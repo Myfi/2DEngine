@@ -26,7 +26,9 @@ private:
     Image   boxTest;                        // a box used for testing
     Enemy   enemies[100];
     int current_terrain = 0;
+    int num_of_enemies = 0;
     int mTime = 0;
+    int current_asset = 1;
 
 public:
     // Constructor

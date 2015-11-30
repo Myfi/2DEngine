@@ -10,7 +10,7 @@ namespace enemyNS
 	const int HEIGHT = 16;
 	// location on screen
 	const int X = 100;
-	const int Y = 400;
+	const int Y = 450;
 	// pixels per second
 	const float SPEED = 50;
 	// minumum Y velocity
