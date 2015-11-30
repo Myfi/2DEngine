@@ -89,9 +89,11 @@ void Engine::update()
             // MessageBox(NULL, "HELLo", "Error", MB_OK);
             enemies[num_of_enemies].setX((input->getMouseX() / 20) * 20);
             enemies[num_of_enemies].setY((input->getMouseY() / 20) * 20);
+
             mTime = 0;
         }
     }
+    prevX = character.getY();
 
 	if (ground[current_terrain].getInitialized())
 	{
@@ -154,11 +156,17 @@ void Engine::collisions()
 		}
 	}
 
-    for (int i = 0; i < 1; i++)
+    for (int i = 0; i < num_of_enemies; i++)
     {
         if (character.collides(enemies[i], cv))
         {
-            
+            if (character.getY() > prevX)
+            {
+                enemies[i].setActive(false);
+                character.jump();
+            } else {
+                MessageBox(NULL, "I die", "Error", MB_OK);
+            }
         }
     }
 
@@ -177,13 +185,13 @@ void Engine::render()
     background.draw();                      
     character.draw();
 	for (int i = 0; i < current_terrain; ++i)
-	{
-		ground[i].draw();
-	}
+        ground[i].draw();
+	
 
     for (int i = 0; i < num_of_enemies; ++i)
     {
-        enemies[i].draw();
+        if (enemies[i].getActive())
+            enemies[i].draw();
     }
 
     graphics->spriteEnd();                  // end drawing sprites
