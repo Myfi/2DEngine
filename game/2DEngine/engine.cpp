@@ -101,48 +101,48 @@ void Engine::update()
     }
     prevX = character.getY();
 
-	if (character.getX() < GAME_WIDTH / 2 - 16) 
-	{
-		if (input->isKeyDown(CHARACTER_RIGHT_KEY))
-		{
-			character.setVelocity(VECTOR2(100, character.getVelocity().y));
-		}
-		else if (input->isKeyDown(CHARACTER_LEFT_KEY))
-		{
-			character.setVelocity(VECTOR2(-100, character.getVelocity().y));
-		}
-	}
-	else
-	{
-		for (int i = 0; i < 5; i++)
-		{
-			if (input->isKeyDown(CHARACTER_RIGHT_KEY))
-			{
-				ground[i].setVelocity(VECTOR2(-100, 100));
-			}
-			else if (input->isKeyDown(CHARACTER_LEFT_KEY))
-			{
-				ground[i].setVelocity(VECTOR2(100, 100));
-			}
-			else
-			{
-				ground[i].setVelocity(VECTOR2(0, 0));
-			}
-		}
+	// if (character.getX() < GAME_WIDTH / 2 - 16) 
+	// {
+	// 	if (input->isKeyDown(CHARACTER_RIGHT_KEY))
+	// 	{
+	// 		character.setVelocity(VECTOR2(100, character.getVelocity().y));
+	// 	}
+	// 	else if (input->isKeyDown(CHARACTER_LEFT_KEY))
+	// 	{
+	// 		character.setVelocity(VECTOR2(-100, character.getVelocity().y));
+	// 	}
+	// }
+	// else
+	// {
+	// 	for (int i = 0; i < 5; i++)
+	// 	{
+	// 		if (input->isKeyDown(CHARACTER_RIGHT_KEY))
+	// 		{
+	// 			ground[i].setVelocity(VECTOR2(-100, 100));
+	// 		}
+	// 		else if (input->isKeyDown(CHARACTER_LEFT_KEY))
+	// 		{
+	// 			ground[i].setVelocity(VECTOR2(100, 100));
+	// 		}
+	// 		else
+	// 		{
+	// 			ground[i].setVelocity(VECTOR2(0, 0));
+	// 		}
+	// 	}
 
-		if (input->isKeyDown(CHARACTER_RIGHT_KEY))
-		{
-			endFlag.setVelocity(VECTOR2(-100, 100));
-		}
-		else if (input->isKeyDown(CHARACTER_LEFT_KEY))
-		{
-			endFlag.setVelocity(VECTOR2(100, 100));
-		}
-		else
-		{
-			endFlag.setVelocity(VECTOR2(0, 0));
-		}
-	}
+	// 	if (input->isKeyDown(CHARACTER_RIGHT_KEY))
+	// 	{
+	// 		endFlag.setVelocity(VECTOR2(-100, 100));
+	// 	}
+	// 	else if (input->isKeyDown(CHARACTER_LEFT_KEY))
+	// 	{
+	// 		endFlag.setVelocity(VECTOR2(100, 100));
+	// 	}
+	// 	else
+	// 	{
+	// 		endFlag.setVelocity(VECTOR2(0, 0));
+	// 	}
+	// }
 
 	endFlag.update(frameTime);
 	character.update(frameTime);
@@ -219,7 +219,7 @@ void Engine::collisions()
 
     for (int i = 0; i < num_of_enemies; i++)
     {
-        if (character.collides(enemies[i], cv))
+        if (character.collides(enemies[i], cv) && enemies[i].getActive())
         {
             if (character.getY() > prevX)
             {

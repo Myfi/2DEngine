@@ -26,22 +26,22 @@ Player::Player() : Entity()
 void Player::update(float frameTime)
 {
 	VECTOR2 cv;
-	if (getJump())
-	{
-		startFrame = 12;
-		endFrame = 12;
-	}
+	
+	startFrame = 12;
+	endFrame = 12;
 	if (input->isKeyDown(CHARACTER_RIGHT_KEY))            // if move right
 	{
 		startFrame = 12;
 		endFrame = 13;
 		this->flipHorizontal(false);
+		velocity.x = playerNS::SPEED;
 	}
 	if (input->isKeyDown(CHARACTER_LEFT_KEY))             // if move left
 	{
 		startFrame = 12;
 		endFrame = 13;
 		this->flipHorizontal(true);
+		velocity.x = -playerNS::SPEED;
 	}
 
 	// If up key is pressed and the player is at the bottom of the screen
