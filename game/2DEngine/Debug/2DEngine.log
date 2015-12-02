@@ -1,16 +1,7 @@
-﻿Build started 11/30/2015 12:49:57 PM.
+﻿Build started 12/2/2015 12:10:50 PM.
      1>Project "C:\Users\Nathan\Desktop\GameEngine\2DEngine\game\2DEngine\2DEngine.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt engine.cpp
-         engine.cpp
-     1>c:\users\nathan\desktop\gameengine\2dengine\game\2dengine\engine.cpp(64): warning C4244: 'argument': conversion from 'UINT' to 'float', possible loss of data
-     1>c:\users\nathan\desktop\gameengine\2dengine\game\2dengine\engine.cpp(90): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\nathan\desktop\gameengine\2dengine\game\2dengine\engine.cpp(91): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\nathan\desktop\gameengine\2dengine\game\2dengine\engine.cpp(99): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\nathan\desktop\gameengine\2dengine\game\2dengine\engine.cpp(100): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\nathan\desktop\gameengine\2dengine\game\2dengine\engine.cpp(105): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Nathan\Desktop\GameEngine\2DEngine\game\2DEngine\Debug\2DEngine.exe" /INCREMENTAL /NOLOGO Winmm.lib d3d9.lib d3dx9.lib xinput.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\Nathan\Desktop\GameEngine\2DEngine\game\2DEngine\Debug\2DEngine.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Nathan\Desktop\GameEngine\2DEngine\game\2DEngine\Debug\2DEngine.lib" /MACHINE:X86 Debug\audio.obj
+     1>Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Nathan\Desktop\GameEngine\2DEngine\game\2DEngine\Debug\2DEngine.exe" /INCREMENTAL /NOLOGO Winmm.lib d3d9.lib d3dx9.lib xinput.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Nathan\Desktop\GameEngine\2DEngine\game\2DEngine\Debug\2DEngine.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Nathan\Desktop\GameEngine\2DEngine\game\2DEngine\Debug\2DEngine.lib" /MACHINE:X86 Debug\audio.obj
          Debug\player.obj
          Debug\engine.obj
          Debug\game.obj
@@ -22,9 +13,9 @@
          Debug\terrain.obj
          Debug\textureManager.obj
          Debug\winmain.obj
-         2DEngine.vcxproj -> C:\Users\Nathan\Desktop\GameEngine\2DEngine\game\2DEngine\Debug\2DEngine.exe
-     1>Done Building Project "C:\Users\Nathan\Desktop\GameEngine\2DEngine\game\2DEngine\2DEngine.vcxproj" (Build target(s)).
+     1>LINK : fatal error LNK1104: cannot open file 'libcpmt.lib'
+     1>Done Building Project "C:\Users\Nathan\Desktop\GameEngine\2DEngine\game\2DEngine\2DEngine.vcxproj" (Build target(s)) -- FAILED.
 
-Build succeeded.
+Build FAILED.
 
-Time Elapsed 00:00:04.56
+Time Elapsed 00:00:00.35

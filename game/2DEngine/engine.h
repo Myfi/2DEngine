@@ -24,7 +24,7 @@ private:
     Player  character;						// character image     
 	Terrain ground[764];					// ground entity
     Image   boxTest;                        // a box used for testing
-	Terrain endFlag;							// a box used for restarting
+	Terrain endFlag;						// a box used for restarting
     Enemy   enemies[100];
     Terrain stopBlock[200];
     int current_terrain = 0;

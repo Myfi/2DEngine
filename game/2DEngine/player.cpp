@@ -35,12 +35,14 @@ void Player::update(float frameTime)
 	{
 		startFrame = 12;
 		endFrame = 13;
+		setVelocity(VECTOR2(100, getVelocity().y));
 		this->flipHorizontal(false);
 	}
 	if (input->isKeyDown(CHARACTER_LEFT_KEY))             // if move left
 	{
 		startFrame = 12;
 		endFrame = 13;
+		setVelocity(VECTOR2(-100, getVelocity().y));
 		this->flipHorizontal(true);
 	}
 

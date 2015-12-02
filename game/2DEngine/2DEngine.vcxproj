@@ -18,7 +18,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -70,7 +70,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\2DEngine\game\2DEngine\audio.cpp" />
+    <ClCompile Include="audio.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="engine.cpp" />
     <ClCompile Include="game.cpp" />
@@ -84,7 +84,7 @@
     <ClCompile Include="winmain.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\2DEngine\game\2DEngine\audio.h" />
+    <ClInclude Include="audio.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="constants.h" />
