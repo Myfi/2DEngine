@@ -75,98 +75,76 @@ void Engine::initialize(HWND hwnd)
 //=============================================================================
 void Engine::update()
 {
-    if(input->getMouseLButton() && !ground[current_terrain].getInitialized())
-        mTime ++;
-    if (mTime > 0 && !input->getMouseLButton())
-    {
-        if (current_asset == 0) 
-        {
-            if (!ground[current_terrain].initialize(this, terrainNS::WIDTH, terrainNS::HEIGHT, 5, &groundTexture))
-                throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ground"));
-            // MessageBox(NULL, "HELLo", "Error", MB_OK);
-            ground[current_terrain].setX((input->getMouseX() / 20) * 20);
-    		ground[current_terrain].setY((input->getMouseY() / 20) * 20);
-            mTime = 0;
-        }
-        else if (current_asset == 1) 
-        {
-            if (!enemies[num_of_enemies].initialize(this, enemyNS::WIDTH, enemyNS::HEIGHT, 3, &enemyTexture))
-                throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ground"));
-            // MessageBox(NULL, "HELLo", "Error", MB_OK);
-            enemies[num_of_enemies].setX((input->getMouseX() / 20) * 20);
-            enemies[num_of_enemies].setY((input->getMouseY() / 20) * 20);
 
-            mTime = 0;
-        }
-    }
-    prevX = character.getY();
-
-	// if (character.getX() < GAME_WIDTH / 2 - 16) 
-	// {
-	// 	if (input->isKeyDown(CHARACTER_RIGHT_KEY))
-	// 	{
-	// 		character.setVelocity(VECTOR2(100, character.getVelocity().y));
-	// 	}
-	// 	else if (input->isKeyDown(CHARACTER_LEFT_KEY))
-	// 	{
-	// 		character.setVelocity(VECTOR2(-100, character.getVelocity().y));
-	// 	}
-	// }
-	// else
-	// {
-	// 	for (int i = 0; i < 5; i++)
-	// 	{
-	// 		if (input->isKeyDown(CHARACTER_RIGHT_KEY))
-	// 		{
-	// 			ground[i].setVelocity(VECTOR2(-100, 100));
-	// 		}
-	// 		else if (input->isKeyDown(CHARACTER_LEFT_KEY))
-	// 		{
-	// 			ground[i].setVelocity(VECTOR2(100, 100));
-	// 		}
-	// 		else
-	// 		{
-	// 			ground[i].setVelocity(VECTOR2(0, 0));
-	// 		}
-	// 	}
-
-	// 	if (input->isKeyDown(CHARACTER_RIGHT_KEY))
-	// 	{
-	// 		endFlag.setVelocity(VECTOR2(-100, 100));
-	// 	}
-	// 	else if (input->isKeyDown(CHARACTER_LEFT_KEY))
-	// 	{
-	// 		endFlag.setVelocity(VECTOR2(100, 100));
-	// 	}
-	// 	else
-	// 	{
-	// 		endFlag.setVelocity(VECTOR2(0, 0));
-	// 	}
-	// }
-
-	endFlag.update(frameTime);
-	character.update(frameTime);
-	
-	if (ground[current_terrain].getInitialized())
+	// EDITING CONTROLS
+	if (editmode)
 	{
-		current_terrain++;
+	    if(input->getMouseLButton() && !ground[current_terrain].getInitialized())
+	        mTime ++;
+	    if (mTime > 0 && !input->getMouseLButton())
+	    {
+	        if (current_asset == 0) 
+	        {
+	            if (!ground[current_terrain].initialize(this, terrainNS::WIDTH, terrainNS::HEIGHT, 5, &groundTexture))
+	                throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ground"));
+	            // MessageBox(NULL, "HELLo", "Error", MB_OK);
+	            ground[current_terrain].setX((input->getMouseX() / 20) * 20);
+	    		ground[current_terrain].setY((input->getMouseY() / 20) * 20);
+	    		ground[current_terrain].setStartX((input->getMouseX() / 20) * 20);
+	    		ground[current_terrain].setStartY((input->getMouseY() / 20) * 20);
+	            mTime = 0;
+	        }
+	        else if (current_asset == 1) 
+	        {
+	            if (!enemies[num_of_enemies].initialize(this, enemyNS::WIDTH, enemyNS::HEIGHT, 3, &enemyTexture))
+	                throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ground"));
+	            // MessageBox(NULL, "HELLo", "Error", MB_OK);
+	            enemies[num_of_enemies].setX((input->getMouseX() / 20) * 20);
+	            enemies[num_of_enemies].setY((input->getMouseY() / 20) * 20);
+	            enemies[num_of_enemies].setStartX((input->getMouseX() / 20) * 20);
+	            enemies[num_of_enemies].setStartY((input->getMouseY() / 20) * 20);
+	            mTime = 0;
+	        }
+	        else if (current_asset == 2)
+	        {
+	        	character.setX(input->getMouseX());
+	        	character.setY(input->getMouseY());
+	        	character.setStartX(input->getMouseX());
+	        	character.setStartY(input->getMouseY());
+	        }
+	        else if (current_asset == 3)
+	        {
+	        	endFlag.setX((input->getMouseX() / 20) * 20);
+	        	endFlag.setX((input->getMouseY() / 20) * 20);
+	        	endFlag.setStartX(input->getMouseX() / 20) * 20);
+	        	endFlag.setStartY(input->getMouseY() / 20) * 20);
+	        }
+	    }
+	} else {
+	    // UPDATE PLAYING
+	    prevX = character.getY();
+		endFlag.update(frameTime);
+		character.update(frameTime);
+		
+		if (ground[current_terrain].getInitialized())
+		{
+			current_terrain++;
+		}
+
+		for (int i = 0; i < 5; i++) 
+		{
+			ground[i].update(frameTime);
+		}
+
+	    if (enemies[num_of_enemies].getInitialized())
+	    {
+	        num_of_enemies++;
+	    }
+	    for (int i = 0; i < num_of_enemies; ++i)
+	    {
+	        enemies[i].update(frameTime);
+	    }
 	}
-
-	for (int i = 0; i < 5; i++) 
-	{
-		ground[i].update(frameTime);
-	}
-
-    if (enemies[num_of_enemies].getInitialized())
-    {
-        num_of_enemies++;
-    }
-	// ground[0].update(frameTime);
-    for (int i = 0; i < num_of_enemies; ++i)
-    {
-        enemies[i].update(frameTime);
-    }
-
 }
 
 //=============================================================================

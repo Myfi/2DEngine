@@ -25,6 +25,8 @@ class Image
     bool    visible;        // true when visible
     bool    initialized;    // true when successfully initialized
     bool    animComplete;   // true when loop is false and endFrame has finished displaying
+    int startX;
+    int startY;
 
   public:
     // Constructor
@@ -141,6 +143,12 @@ class Image
     // Set TextureManager
     virtual void setTextureManager(TextureManager *textureM)
     { textureManager = textureM; }
+
+    // Set Starting X Position
+    virtual void setStartX(int x) {startX = x;}
+
+    // Set Starting Y Position
+    virtual void setStartY(int y) {startY = y;}
 
     ////////////////////////////////////////
     //         Other functions            //
