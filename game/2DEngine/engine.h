@@ -19,19 +19,21 @@ private:
     TextureManager backgroundTexture;		// background texture
     TextureManager characterTexture;		// character texture
 	TextureManager groundTexture;			// ground texture
-    TextureManager enemyTexture;           // enemy texture
+    TextureManager enemyTexture;            // enemy texture
     Image   background;						// Background image
     Player  character;						// character image     
 	Terrain ground[764];					// ground entity
     Image   boxTest;                        // a box used for testing
-	Terrain endFlag;							// a box used for restarting
+	Terrain endFlag;						// a box used for restarting
     Enemy   enemies[100];
     Terrain stopBlock[200];
-    int current_terrain = 0;
-    int num_of_enemies = 0;
+    int current_terrain = 0;            // Used to keep track of the terrain 
+                                        // we are adding
+    int num_of_enemies = 0;             // Used to keep track of the enemy
+                                        // we are adding
     int mTime = 0;
-    int current_asset = 1;
-    int prevX = 0;
+    int current_asset = 1;                  // Current asset the click will add
+    int prevX = 0;                          // Used for collision checking
 
 public:
     // Constructor
