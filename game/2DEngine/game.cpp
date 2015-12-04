@@ -220,22 +220,13 @@ void Game::run(HWND hwnd)
         setDisplayMode(graphicsNS::WINDOW); // set window mode
 
     // TODO:: Change so that it only registers one key press
-    if (input->isKeyDown(EDIT_E_KEY))
+    if (input->wasKeyPressed(EDIT_E_KEY))
     {
         if (editmode == true)
             editmode = false;
         else
             editmode = true;
     }
-
-    // // if Esc key, set window mode
-    // if (input->isKeyDown(ENTER_KEY))
-    // {
-    //     if (paused)
-    //         paused = false;
-    //     else 
-    //         paused = true;
-    // }
 
     // Clear input
     // Call this after all key checks are done

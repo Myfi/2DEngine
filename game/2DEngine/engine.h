@@ -15,25 +15,32 @@
 class Engine : public Game
 {
 private:
-    // game items
+    // In game Textures
     TextureManager backgroundTexture;		// background texture
     TextureManager characterTexture;		// character texture
 	TextureManager groundTexture;			// ground texture
     TextureManager enemyTexture;            // enemy texture
+    TextureManager assetsTexture;           // assets texture
+
+    // In game objects
     Image   background;						// Background image
     Player  character;						// character image     
-	Terrain ground[764];					// ground entity
-    Image   boxTest;                        // a box used for testing
+    Image   assetDisplay;                   // a box used for testing
 	Terrain endFlag;						// a box used for restarting
-    Enemy   enemies[100];
+    Terrain ground[764];                    // ground entity
     Terrain stopBlock[200];
-    int current_terrain = 0;            // Used to keep track of the terrain 
-                                        // we are adding
-    int num_of_enemies = 0;             // Used to keep track of the enemy
-                                        // we are adding
+    Enemy   enemies[100];
+
+    // Current Asset counters
+    int current_terrain = 0;                // Used to keep track of the terrain 
+                                            // we are adding
+    int num_of_enemies = 0;                 // Used to keep track of the enemy
+                                            // we are adding
     int mTime = 0;
     int current_asset = 1;                  // Current asset the click will add
     int prevX = 0;                          // Used for collision checking
+
+    char *current_file;
 
 public:
     // Constructor
@@ -44,12 +51,16 @@ public:
 
     // Initialize the game
     void initialize(HWND hwnd);
+    // Update the game
     void update();      
-    void ai();          
+    void ai();
+    // Collision handling          
     void collisions();  
     void render();      
     void releaseAll();
     void resetAll();
+    // Used for writing to a file saving all assets currently on the map
+    int saveAll();
 	int mousepos_to_gridX(int X);
 	int mousepos_to_gridY(int Y);
 };

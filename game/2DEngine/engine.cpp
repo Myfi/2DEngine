@@ -25,7 +25,7 @@ void Engine::initialize(HWND hwnd)
     current_terrain = 0;
     num_of_enemies = 0;
 
-    // background texture
+    // Textures
     if (!backgroundTexture.initialize(graphics,BACKGROUND_IMAGE))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
     if (!characterTexture.initialize(graphics,CHARACTER_IMAGE))
@@ -35,22 +35,23 @@ void Engine::initialize(HWND hwnd)
     if (!enemyTexture.initialize(graphics, ENEMY_IMAGE))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy texture"));
 
-    // background
+    // Background
     if (!background.initialize(graphics,0,0,0,&backgroundTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
-    // character
+    // Character
     if (!character.initialize(this,playerNS::WIDTH,playerNS::HEIGHT,6,&characterTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing character"));
-    // boxTest
-    if (!boxTest.initialize(graphics, terrainNS::WIDTH, terrainNS::HEIGHT, 0, &groundTexture))
+    // Used to display the current asset
+    if (!assetDisplay.initialize(graphics, 32, 32, 0, &groundTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing boxTest"));
-    boxTest.setX(0);
-    boxTest.setY(0);
+    assetDisplay.setX(5);
+    assetDisplay.setY(5);
+    // End Flag
 	if (!endFlag.initialize(this, terrainNS::WIDTH, terrainNS::HEIGHT, 5, &groundTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing end flag"));
 	endFlag.setX(600);
 	endFlag.setY(GAME_HEIGHT - terrainNS::HEIGHT);
-    // terrain
+    // Terrain
     int dis = 20;
     for (int i = 0; i < 5; ++i)
     {
@@ -76,6 +77,16 @@ void Engine::update()
 	// EDITING CONTROLS
 	if (editmode)
 	{
+		// If the Spacebar is pressed change the asset we are currently adding
+		if(input->wasKeyPressed(SPACE_KEY))
+		{
+			if (current_asset == 4)
+				current_asset = 0;
+			else 
+				current_asset++;
+
+			// TODO::Update the asset display object
+		}
 	    if(input->getMouseLButton())
 	        mTime ++;
 	    if (mTime > 0 && !input->getMouseLButton())
@@ -132,7 +143,6 @@ void Engine::update()
 	    prevX = character.getY();
 		endFlag.update(frameTime);
 		character.update(frameTime);
-		
 		
 		for (int i = 0; i < 5; i++) 
 		{
@@ -234,7 +244,8 @@ void Engine::render()
         if (enemies[i].getActive())
             enemies[i].draw();
     }
-    boxTest.draw();
+    if (editmode)
+    	assetDisplay.draw();
     graphics->spriteEnd();                  // end drawing sprites
 }
 
@@ -264,6 +275,14 @@ void Engine::resetAll()
 
     Game::resetAll();
     return;
+}
+
+//=============================================================================
+// Saves all of the currently initialized entities
+//=============================================================================
+int Engine::saveAll()
+{
+	return 0;
 }
 
 //=============================================================================

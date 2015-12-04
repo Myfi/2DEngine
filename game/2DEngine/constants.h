@@ -48,9 +48,10 @@ const UCHAR ESC_KEY      = VK_ESCAPE;       // escape key
 const UCHAR ALT_KEY      = VK_MENU;         // Alt key
 const UCHAR ENTER_KEY    = VK_RETURN;       // Enter key
 const UCHAR EDIT_E_KEY	 = 0x45;
-const UCHAR CHARACTER_LEFT_KEY    = 0x41;     // left arrow
-const UCHAR CHARACTER_RIGHT_KEY   = 0x44;    // right arrow
-const UCHAR CHARACTER_UP_KEY      = 0x57;       // up arrow
-const UCHAR CHARACTER_DOWN_KEY    = 0x53;     // down arrow
+const UCHAR CHARACTER_LEFT_KEY    = 0x41;   // left arrow
+const UCHAR CHARACTER_RIGHT_KEY   = 0x44;  	// right arrow
+const UCHAR CHARACTER_UP_KEY      = 0x57;   // up arrow
+const UCHAR CHARACTER_DOWN_KEY    = 0x53;   // down arrow
+const UCHAR SPACE_KEY 	 = VK_SPACE;		// Spacebar
 
 #endif
