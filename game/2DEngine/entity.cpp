@@ -30,6 +30,7 @@ bool Entity::initialize(Game *gamePtr, int width, int height, int cols, TextureM
 {
 	input = gamePtr->getInput();
 	initialized = true;
+	active = true;
 	return(Image::initialize(gamePtr->getGraphics(), width, height, cols, texture)); 
 }
 

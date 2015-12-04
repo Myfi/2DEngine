@@ -22,6 +22,8 @@ Engine::~Engine()
 void Engine::initialize(HWND hwnd)
 {
     Game::initialize(hwnd); // throws GameError
+    current_terrain = 0;
+    num_of_enemies = 0;
 
     // background texture
     if (!backgroundTexture.initialize(graphics,BACKGROUND_IMAGE))
@@ -44,14 +46,10 @@ void Engine::initialize(HWND hwnd)
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing boxTest"));
     boxTest.setX(0);
     boxTest.setY(0);
-    if (!enemies[0].initialize(this, enemyNS::WIDTH, enemyNS::HEIGHT, 3, &enemyTexture))
-        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy"));
 	if (!endFlag.initialize(this, terrainNS::WIDTH, terrainNS::HEIGHT, 5, &groundTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing end flag"));
 	endFlag.setX(600);
 	endFlag.setY(GAME_HEIGHT - terrainNS::HEIGHT);
-
-    num_of_enemies ++;
     // terrain
     int dis = 20;
     for (int i = 0; i < 5; ++i)
@@ -62,10 +60,9 @@ void Engine::initialize(HWND hwnd)
         current_terrain ++;
         dis += 20;
     }
-    character.setX(0);                           // Character Starting Position
-    character.setY(0);
+    character.setX(10);                           // Character Starting Position
+    character.setY(10);
 	character.setVelocity(VECTOR2(0, -playerNS::SPEED));
-
 
 	return;
 }
@@ -237,7 +234,7 @@ void Engine::render()
         if (enemies[i].getActive())
             enemies[i].draw();
     }
-
+    boxTest.draw();
     graphics->spriteEnd();                  // end drawing sprites
 }
 

@@ -77,6 +77,7 @@ bool Image::initialize(Graphics *g, int width, int height, int ncols,
     }
     catch(...) {return false;}
     initialized = true;                                // successfully initialized
+    
     return true;
 }
 
