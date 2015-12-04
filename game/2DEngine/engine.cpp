@@ -48,7 +48,7 @@ void Engine::initialize(HWND hwnd)
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy"));
 	if (!endFlag.initialize(this, terrainNS::WIDTH, terrainNS::HEIGHT, 5, &groundTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing end flag"));
-	endFlag.setX(900);
+	endFlag.setX(600);
 	endFlag.setY(GAME_HEIGHT - terrainNS::HEIGHT);
 
     num_of_enemies ++;
@@ -79,7 +79,7 @@ void Engine::update()
 	// EDITING CONTROLS
 	if (editmode)
 	{
-	    if(input->getMouseLButton() && !ground[current_terrain].getInitialized())
+	    if(input->getMouseLButton())
 	        mTime ++;
 	    if (mTime > 0 && !input->getMouseLButton())
 	    {
@@ -92,18 +92,28 @@ void Engine::update()
 	    		ground[current_terrain].setY((input->getMouseY() / 20) * 20);
 	    		ground[current_terrain].setStartX((input->getMouseX() / 20) * 20);
 	    		ground[current_terrain].setStartY((input->getMouseY() / 20) * 20);
+                ground[current_terrain].update(frameTime);
 	            mTime = 0;
+                if (ground[current_terrain].getInitialized())
+                {
+                    current_terrain++;
+                }
 	        }
 	        else if (current_asset == 1) 
 	        {
 	            if (!enemies[num_of_enemies].initialize(this, enemyNS::WIDTH, enemyNS::HEIGHT, 3, &enemyTexture))
-	                throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ground"));
+	                throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemies"));
 	            // MessageBox(NULL, "HELLo", "Error", MB_OK);
 	            enemies[num_of_enemies].setX((input->getMouseX() / 20) * 20);
 	            enemies[num_of_enemies].setY((input->getMouseY() / 20) * 20);
 	            enemies[num_of_enemies].setStartX((input->getMouseX() / 20) * 20);
 	            enemies[num_of_enemies].setStartY((input->getMouseY() / 20) * 20);
+                enemies[num_of_enemies].update(frameTime);
 	            mTime = 0;
+                if (enemies[num_of_enemies].getInitialized())
+                {
+                    num_of_enemies++;
+                }
 	        }
 	        else if (current_asset == 2)
 	        {
@@ -116,8 +126,8 @@ void Engine::update()
 	        {
 	        	endFlag.setX((input->getMouseX() / 20) * 20);
 	        	endFlag.setX((input->getMouseY() / 20) * 20);
-	        	endFlag.setStartX(input->getMouseX() / 20) * 20);
-	        	endFlag.setStartY(input->getMouseY() / 20) * 20);
+	        	endFlag.setStartX((input->getMouseX() / 20) * 20);
+	        	endFlag.setStartY((input->getMouseY() / 20) * 20);
 	        }
 	    }
 	} else {
@@ -126,20 +136,12 @@ void Engine::update()
 		endFlag.update(frameTime);
 		character.update(frameTime);
 		
-		if (ground[current_terrain].getInitialized())
-		{
-			current_terrain++;
-		}
-
+		
 		for (int i = 0; i < 5; i++) 
 		{
 			ground[i].update(frameTime);
 		}
-
-	    if (enemies[num_of_enemies].getInitialized())
-	    {
-	        num_of_enemies++;
-	    }
+	    
 	    for (int i = 0; i < num_of_enemies; ++i)
 	    {
 	        enemies[i].update(frameTime);
