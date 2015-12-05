@@ -3,7 +3,6 @@
 
 #include "entity.h"
 #include "constants.h"
-#include "audio.h"
 
 namespace playerNS
 {
@@ -30,7 +29,7 @@ class Player : public Entity
 	bool canJump;
 public:
 	Player();
-	void update(float frameTime, Audio a);
+	void update(float frameTime);
 	void setJump(bool v);
 	bool getJump();
 };

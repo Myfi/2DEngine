@@ -23,10 +23,12 @@
 //                  Constants
 //-----------------------------------------------
 // graphic images
-const char BACKGROUND_IMAGE[]  = "pictures\\sunny.png"; 
+const char BACKGROUND_IMAGE[]  = "pictures\\ForestLevel.png"; 
 const char CHARACTER_IMAGE[]   = "pictures\\Complete_Character.png";   // CHARACTER
 const char GROUND_IMAGE[] = "pictures\\Grass.png";   // GRASS GROUND
 const char ENEMY_IMAGE[] = "pictures\\Enemies.png";
+const char ASSET_DISPLAY[] = "pictures\\Large_enemy_buttons.png";
+const char END_FLAG[] = "pictures\\Grass.png";
 
 // window
 const char CLASS_NAME[] = "2DEngine";
@@ -47,9 +49,12 @@ const float MAX_FRAME_TIME = 1.0f/MIN_FRAME_RATE; // maximum time used in calcul
 const UCHAR ESC_KEY      = VK_ESCAPE;       // escape key
 const UCHAR ALT_KEY      = VK_MENU;         // Alt key
 const UCHAR ENTER_KEY    = VK_RETURN;       // Enter key
-const UCHAR CHARACTER_LEFT_KEY    = VK_LEFT;     // left arrow
-const UCHAR CHARACTER_RIGHT_KEY   = VK_RIGHT;    // right arrow
-const UCHAR CHARACTER_UP_KEY      = VK_UP;       // up arrow
-const UCHAR CHARACTER_DOWN_KEY    = VK_DOWN;     // down arrow
+const UCHAR EDIT_E_KEY	 = 0x45;
+const UCHAR CHARACTER_LEFT_KEY    = 0x41;   // left arrow
+const UCHAR CHARACTER_RIGHT_KEY   = 0x44;  	// right arrow
+const UCHAR CHARACTER_UP_KEY      = 0x57;   // up arrow
+const UCHAR CHARACTER_DOWN_KEY    = 0x53;   // down arrow
+const UCHAR SPACE_KEY 	 = VK_SPACE;		// Spacebar
+const UCHAR LEFTMBUTTON  = VK_LBUTTON;
 
 #endif

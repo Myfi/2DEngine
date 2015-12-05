@@ -24,7 +24,8 @@ protected:
     float   fps;                // frames per second
     DWORD   sleepTime;          // number of milli-seconds to sleep between frames
     bool    paused;             // true if game is paused
-    bool    initialized;
+    bool    initialized;        // Checks if the current game object is initialized
+    bool    editmode;           // Sets which mode to use
 
 public:
     // Constructor

@@ -1,5 +1,4 @@
 #include "player.h"
-#include "audio.h"
 
 Player::Player() : Entity()
 {
@@ -24,23 +23,19 @@ Player::Player() : Entity()
 	canJump = false;
 }
 
-void Player::update(float frameTime, Audio a)
+void Player::update(float frameTime)
 {
 	VECTOR2 cv;
-	if (getJump())
-	{
-		startFrame = 12;
-		endFrame = 12;
-	}
+	
+	startFrame = 12;
+	endFrame = 12;
 	if (input->isKeyDown(CHARACTER_RIGHT_KEY))            // if move right
 	{
 		startFrame = 12;
 		endFrame = 13;
-		if (frameTime > 1) {
-			a.playSound("audio\\grassyfootstep.wav");
-		}
 		setVelocity(VECTOR2(100, getVelocity().y));
 		this->flipHorizontal(false);
+		velocity.x = playerNS::SPEED;
 	}
 	if (input->isKeyDown(CHARACTER_LEFT_KEY))             // if move left
 	{
@@ -48,6 +43,7 @@ void Player::update(float frameTime, Audio a)
 		endFrame = 13;
 		setVelocity(VECTOR2(-100, getVelocity().y));
 		this->flipHorizontal(true);
+		velocity.x = -playerNS::SPEED;
 	}
 
 	// If up key is pressed and the player is at the bottom of the screen

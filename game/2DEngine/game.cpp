@@ -12,6 +12,7 @@ Game::Game()
     paused = false;             // game is not paused
     graphics = NULL;
     initialized = false;
+    editmode = true;
 }
 
 //=============================================================================
@@ -218,14 +219,13 @@ void Game::run(HWND hwnd)
     if (input->isKeyDown(ESC_KEY))
         setDisplayMode(graphicsNS::WINDOW); // set window mode
 
-    // // if Esc key, set window mode
-    // if (input->isKeyDown(ENTER_KEY))
-    // {
-    //     if (paused)
-    //         paused = false;
-    //     else 
-    //         paused = true;
-    // }
+    if (input->wasKeyPressed(EDIT_E_KEY))
+    {
+        if (editmode == true)
+            editmode = false;
+        else
+            editmode = true;
+    }
 
     // Clear input
     // Call this after all key checks are done

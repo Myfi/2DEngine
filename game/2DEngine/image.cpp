@@ -1,4 +1,7 @@
 #include "image.h"
+#include "audio.h"
+
+Audio a = Audio();
 
 //=============================================================================
 // default constructor
@@ -77,6 +80,7 @@ bool Image::initialize(Graphics *g, int width, int height, int ncols,
     }
     catch(...) {return false;}
     initialized = true;                                // successfully initialized
+    
     return true;
 }
 
@@ -135,6 +139,7 @@ void Image::update(float frameTime)
                 else                        // not looping animation
                 {
                     currentFrame = endFrame;
+					a.playSound("audio\\grassyfootstep.wav");
                     animComplete = true;    // animation complete
                 }
             }
