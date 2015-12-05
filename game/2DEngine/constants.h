@@ -23,10 +23,12 @@
 //                  Constants
 //-----------------------------------------------
 // graphic images
-const char BACKGROUND_IMAGE[]  = "pictures\\sunny.png"; 
+const char BACKGROUND_IMAGE[]  = "pictures\\ForestLevel.png"; 
 const char CHARACTER_IMAGE[]   = "pictures\\Complete_Character.png";   // CHARACTER
 const char GROUND_IMAGE[] = "pictures\\Grass.png";   // GRASS GROUND
 const char ENEMY_IMAGE[] = "pictures\\Enemies.png";
+const char ASSET_DISPLAY[] = "pictures\\Large_enemy_buttons.png";
+const char END_FLAG[] = "pictures\\Grass.png";
 
 // window
 const char CLASS_NAME[] = "2DEngine";
@@ -53,5 +55,6 @@ const UCHAR CHARACTER_RIGHT_KEY   = 0x44;  	// right arrow
 const UCHAR CHARACTER_UP_KEY      = 0x57;   // up arrow
 const UCHAR CHARACTER_DOWN_KEY    = 0x53;   // down arrow
 const UCHAR SPACE_KEY 	 = VK_SPACE;		// Spacebar
+const UCHAR LEFTMBUTTON  = VK_LBUTTON;
 
 #endif

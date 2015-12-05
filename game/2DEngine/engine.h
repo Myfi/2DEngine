@@ -21,13 +21,14 @@ private:
 	TextureManager groundTexture;			// ground texture
     TextureManager enemyTexture;            // enemy texture
     TextureManager assetsTexture;           // assets texture
+    TextureManager flagTexture;             // flag texture
 
     // In game objects
     Image   background;						// Background image
     Player  character;						// character image     
     Image   assetDisplay;                   // a box used for testing
 	Terrain endFlag;						// a box used for restarting
-    Terrain ground[764];                    // ground entity
+    Terrain ground[10];                    // ground entity
     Terrain stopBlock[200];
     Enemy   enemies[100];
 

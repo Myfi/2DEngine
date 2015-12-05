@@ -18,6 +18,7 @@ Engine::~Engine()
 // Initializes the game
 // Throws GameError on error
 // Where we load all of our textures
+// Called by: WinMain initially
 //=============================================================================
 void Engine::initialize(HWND hwnd)
 {
@@ -33,7 +34,11 @@ void Engine::initialize(HWND hwnd)
 	if (!groundTexture.initialize(graphics, GROUND_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ground texture"));
     if (!enemyTexture.initialize(graphics, ENEMY_IMAGE))
-        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy texture"));
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy texture")); 
+    if (!assetsTexture.initialize(graphics, ASSET_DISPLAY))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing asset display texture"));
+    if (!flagTexture.initialize(graphics, ASSET_DISPLAY))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing end flag texture"));
 
     // Background
     if (!background.initialize(graphics,0,0,0,&backgroundTexture))
@@ -42,10 +47,11 @@ void Engine::initialize(HWND hwnd)
     if (!character.initialize(this,playerNS::WIDTH,playerNS::HEIGHT,6,&characterTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing character"));
     // Used to display the current asset
-    if (!assetDisplay.initialize(graphics, 32, 32, 0, &groundTexture))
+    if (!assetDisplay.initialize(graphics, 32, 32, 1, &flagTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing boxTest"));
     assetDisplay.setX(5);
     assetDisplay.setY(5);
+    assetDisplay.setFrameDelay(0.001);
     // End Flag
 	if (!endFlag.initialize(this, terrainNS::WIDTH, terrainNS::HEIGHT, 5, &groundTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing end flag"));
@@ -72,8 +78,7 @@ void Engine::initialize(HWND hwnd)
 // Update all game items
 //=============================================================================
 void Engine::update()
-{
-
+{   
 	// EDITING CONTROLS
 	if (editmode)
 	{
@@ -86,6 +91,8 @@ void Engine::update()
 				current_asset++;
 
 			// TODO::Update the asset display object
+            assetDisplay.setCurrentFrame(current_asset+1);
+            assetDisplay.update(frameTime);
 		}
 	    if(input->getMouseLButton())
 	        mTime ++;
@@ -129,13 +136,15 @@ void Engine::update()
 	        	character.setY(input->getMouseY());
 	        	character.setStartX(input->getMouseX());
 	        	character.setStartY(input->getMouseY());
+                mTime = 0;
 	        }
 	        else if (current_asset == 3)
 	        {
 	        	endFlag.setX((input->getMouseX() / 20) * 20);
-	        	endFlag.setX((input->getMouseY() / 20) * 20);
+	        	endFlag.setY((input->getMouseY() / 20) * 20);
 	        	endFlag.setStartX((input->getMouseX() / 20) * 20);
 	        	endFlag.setStartY((input->getMouseY() / 20) * 20);
+                mTime = 0;
 	        }
 	    }
 	} else {
@@ -143,6 +152,7 @@ void Engine::update()
 	    prevX = character.getY();
 		endFlag.update(frameTime);
 		character.update(frameTime);
+        assetDisplay.update(frameTime);
 		
 		for (int i = 0; i < 5; i++) 
 		{
@@ -168,53 +178,56 @@ void Engine::ai()
 void Engine::collisions()
 {
 	VECTOR2 cv;
-	for (int i = 0; i < current_terrain; i++)
-	{	
-		if (character.collides(endFlag, cv)) {
-			initialize(hwnd);
-		}
-		if (character.collides(ground[i], cv))
-		{
-			if ((character.getY() + playerNS::HEIGHT - 2 ) <= ground[i].getY())
-			{
-				character.setX(character.getX());
-				character.setY(character.getY());
-				character.setVelocity(VECTOR2(0, 0));
-				character.setJump(true);
-			}
-			else if (character.getY() >= (ground[i].getY() + 20 - 3))
-			{
-				character.setX(character.getX());
-				character.setY(character.getY() + 4);
-				character.setVelocity(VECTOR2(0, 0));
-				character.setJump(true);
-			}
-			else if ((character.getX()) <= ground[i].getX())
-			{
-				character.setX(character.getX() - 3);
-				character.setY(character.getY());
-				character.setVelocity(VECTOR2(0, 0));
-			}
-			else if (character.getX() > (ground[i].getX()))
-			{
-				character.setX(character.getX() + 3);
-				character.setY(character.getY());
-				character.setVelocity(VECTOR2(0, 0));
-			}
-		}
-	}
-
-    for (int i = 0; i < num_of_enemies; i++)
+    if (!editmode)
     {
-        if (character.collides(enemies[i], cv) && enemies[i].getActive())
+    	for (int i = 0; i < current_terrain; i++)
+    	{	
+    		if (character.collides(endFlag, cv)) {
+    			initialize(hwnd);
+    		}
+    		if (character.collides(ground[i], cv))
+    		{
+    			if ((character.getY() + playerNS::HEIGHT - 2 ) <= ground[i].getY())
+    			{
+    				character.setX(character.getX());
+    				character.setY(character.getY());
+    				character.setVelocity(VECTOR2(0, 0));
+    				character.setJump(true);
+    			}
+    			else if (character.getY() >= (ground[i].getY() + 20 - 3))
+    			{
+    				character.setX(character.getX());
+    				character.setY(character.getY() + 4);
+    				character.setVelocity(VECTOR2(0, 0));
+    				character.setJump(true);
+    			}
+    			else if ((character.getX()) <= ground[i].getX())
+    			{
+    				character.setX(character.getX() - 3);
+    				character.setY(character.getY());
+    				character.setVelocity(VECTOR2(0, 0));
+    			}
+    			else if (character.getX() > (ground[i].getX()))
+    			{
+    				character.setX(character.getX() + 3);
+    				character.setY(character.getY());
+    				character.setVelocity(VECTOR2(0, 0));
+    			}
+    		}
+    	}
+
+        for (int i = 0; i < num_of_enemies; i++)
         {
-            if (character.getY() > prevX)
+            if (character.collides(enemies[i], cv) && enemies[i].getActive())
             {
-                enemies[i].setActive(false);
-                character.jump();
-            } else {
-                // MessageBox(NULL, "I die", "Error", MB_OK);
-				initialize(hwnd);
+                if (character.getY() > prevX)
+                {
+                    enemies[i].setActive(false);
+                    character.jump();
+                } else {
+                    // MessageBox(NULL, "I die", "Error", MB_OK);
+    				initialize(hwnd);
+                }
             }
         }
     }
@@ -244,8 +257,8 @@ void Engine::render()
         if (enemies[i].getActive())
             enemies[i].draw();
     }
-    if (editmode)
-    	assetDisplay.draw();
+    //if (editmode)
+    assetDisplay.draw();
     graphics->spriteEnd();                  // end drawing sprites
 }
 
