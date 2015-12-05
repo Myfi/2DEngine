@@ -104,7 +104,7 @@ void Engine::update()
     }
     prevX = character.getY();
 
-	character.update(frameTime);
+	character.update(frameTime, a);
 	
 	if (ground[current_terrain].getInitialized())
 	{

@@ -1,4 +1,5 @@
 #include "player.h"
+#include "audio.h"
 
 Player::Player() : Entity()
 {
@@ -23,7 +24,7 @@ Player::Player() : Entity()
 	canJump = false;
 }
 
-void Player::update(float frameTime)
+void Player::update(float frameTime, Audio a)
 {
 	VECTOR2 cv;
 	if (getJump())
@@ -35,6 +36,9 @@ void Player::update(float frameTime)
 	{
 		startFrame = 12;
 		endFrame = 13;
+		if (frameTime > 1) {
+			a.playSound("audio\\grassyfootstep.wav");
+		}
 		setVelocity(VECTOR2(100, getVelocity().y));
 		this->flipHorizontal(false);
 	}
