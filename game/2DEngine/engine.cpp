@@ -90,7 +90,7 @@ void Engine::update()
 		// If the Spacebar is pressed change the asset we are currently adding
 		if(input->wasKeyPressed(SPACE_KEY))
 		{
-			if (current_asset == 4)
+			if (current_asset > 2)
 				current_asset = 0;
 			else 
 				current_asset++;
@@ -154,7 +154,7 @@ void Engine::update()
 	    }
 	} else {
 	    // UPDATE PLAYING
-	    prevX = character.getY();
+	    prevY = character.getY();
 		endFlag.update(frameTime);
 		character.update(frameTime);
         assetDisplay.update(frameTime);
@@ -225,7 +225,7 @@ void Engine::collisions()
         {
             if (character.collides(enemies[i], cv) && enemies[i].getActive())
             {
-                if (character.getY() > prevX)
+                if (character.getY() > prevY)
                 {
                     enemies[i].setActive(false);
                     character.jump();
@@ -262,8 +262,8 @@ void Engine::render()
         if (enemies[i].getActive())
             enemies[i].draw();
     }
-    //if (editmode)
-    assetDisplay.draw();
+    if (editmode)
+        assetDisplay.draw();
     graphics->spriteEnd();                  // end drawing sprites
 }
 

@@ -23,7 +23,7 @@
 //                  Constants
 //-----------------------------------------------
 // graphic images
-const char BACKGROUND_IMAGE[]  = "pictures\\ForestLevel.png"; 
+const char BACKGROUND_IMAGE[]  = "pictures\\LakeLevel.png"; 
 const char CHARACTER_IMAGE[]   = "pictures\\Complete_Character.png";   // CHARACTER
 const char GROUND_IMAGE[] = "pictures\\Grass.png";   // GRASS GROUND
 const char ENEMY_IMAGE[] = "pictures\\Enemies.png";
