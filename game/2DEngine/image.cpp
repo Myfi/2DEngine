@@ -40,7 +40,8 @@ Image::Image()
 // destructor
 //=============================================================================
 Image::~Image()
-{}
+{
+}
 
 //=============================================================================
 // Initialize the Image.
@@ -134,12 +135,14 @@ void Image::update(float frameTime)
             currentFrame++;
             if (currentFrame < startFrame || currentFrame > endFrame)
             {
-                if(loop == true)            // if looping animation
-                    currentFrame = startFrame;
-                else                        // not looping animation
+				if (loop == true) {          // if looping animation
+					currentFrame = startFrame;
+					if (endFrame == 13 && canJump)
+						a.playSound("audio\\grassyfootstep.wav", 1.5);
+				}
+				else                        // not looping animation
                 {
                     currentFrame = endFrame;
-					a.playSound("audio\\grassyfootstep.wav");
                     animComplete = true;    // animation complete
                 }
             }

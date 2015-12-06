@@ -1,4 +1,7 @@
 #include "player.h"
+#include "audio.h"
+
+Audio c = Audio();
 
 Player::Player() : Entity()
 {
@@ -49,6 +52,7 @@ void Player::update(float frameTime)
 	// If up key is pressed and the player is at the bottom of the screen
 	if (input->isKeyDown(CHARACTER_UP_KEY) && getJump())
 	{
+		c.playSound("audio\\jump.wav", .1);
 		jump();
 		startFrame = 1;
 		endFrame = 1;

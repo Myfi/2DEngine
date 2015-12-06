@@ -17,7 +17,7 @@ class Audio
 
 	virtual void release(); //Release
 
-	virtual void playSound(char c[]); //Play the sound
+	virtual void playSound(char c[], double vol); //Play the sound
 };
 
 #endif

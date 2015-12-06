@@ -1,4 +1,8 @@
 #include "engine.h"
+#include "audio.h"
+#include "string"
+
+Audio b = Audio();
 
 //=============================================================================
 // Constructor
@@ -11,6 +15,7 @@ Engine::Engine()
 //=============================================================================
 Engine::~Engine()
 {
+	b.release();
     releaseAll();           // call onLostDevice() for every graphics item
 }
 
@@ -49,7 +54,7 @@ void Engine::initialize(HWND hwnd)
     // Used to display the current asset
     if (!assetDisplay.initialize(graphics, 32, 32, 1, &flagTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing boxTest"));
-    assetDisplay.setX(5);
+	assetDisplay.setX(100);
     assetDisplay.setY(5);
     assetDisplay.setFrameDelay(0.001);
     // End Flag

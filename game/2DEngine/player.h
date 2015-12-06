@@ -26,7 +26,6 @@ namespace playerNS
 
 class Player : public Entity
 {
-	bool canJump;
 public:
 	Player();
 	void update(float frameTime);
