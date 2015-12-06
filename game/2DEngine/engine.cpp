@@ -91,7 +91,14 @@ void Engine::update()
 				current_asset++;
 
 			// TODO::Update the asset display object
-            assetDisplay.setCurrentFrame(current_asset+1);
+            if (current_asset == 0)
+                assetDisplay.setCurrentFrame(1);
+            else if (current_asset == 1)
+                assetDisplay.setCurrentFrame(10);
+            else if (current_asset == 2)
+                assetDisplay.setCurrentFrame(4);
+            else if (current_asset == 3)
+                assetDisplay.setCurrentFrame(12);
             assetDisplay.update(frameTime);
 		}
 	    if(input->getMouseLButton())
