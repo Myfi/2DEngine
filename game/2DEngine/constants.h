@@ -27,8 +27,8 @@ const char BACKGROUND_IMAGE[]  = "pictures\\LakeLevel.png";
 const char CHARACTER_IMAGE[]   = "pictures\\Complete_Character.png";   // CHARACTER
 const char GROUND_IMAGE[] = "pictures\\Grass.png";   // GRASS GROUND
 const char ENEMY_IMAGE[] = "pictures\\Enemies.png";
-const char ASSET_DISPLAY[] = "pictures\\Large_enemy_buttons.png";
-const char END_FLAG[] = "pictures\\Grass.png";
+const char ASSET_DISPLAY[] = "pictures\\Large_buttons.png";
+const char END_FLAG[] = "pictures\\End_Flag.png";
 
 // window
 const char CLASS_NAME[] = "2DEngine";
