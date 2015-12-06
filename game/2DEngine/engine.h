@@ -28,7 +28,7 @@ private:
     Player  character;						// character image     
     Image   assetDisplay;                   // a box used for testing
 	Terrain endFlag;						// a box used for restarting
-    Terrain ground[10];                    // ground entity
+    Terrain ground[764];                    // ground entity
     Terrain stopBlock[200];
     Enemy   enemies[100];
 
@@ -39,7 +39,7 @@ private:
                                             // we are adding
     int mTime = 0;
     int current_asset = 1;                  // Current asset the click will add
-    int prevX = 0;                          // Used for collision checking
+    int prevY = 0;                          // Used for collision checking
 
     char *current_file;
 
