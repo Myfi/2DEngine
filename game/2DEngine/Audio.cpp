@@ -1,4 +1,4 @@
-#include "Audio.h"
+#include "audio.h"
 
 Audio::Audio()
 {
@@ -24,9 +24,9 @@ Audio::Audio()
 	Wave buffer;
 }
 
-void Audio::playSound(char c[])
+void Audio::playSound(char c[], double vol)
 {
-	//load a wave file
+	//load a wave filee
 	if (!buffer.load(c))
 	{
 		g_engine->Release();
@@ -43,6 +43,7 @@ void Audio::playSound(char c[])
 	}
 
 	//start consuming audio in the source voice
+	g_source->SetVolume(vol);
 	g_source->Start();
 
 	//play the sound

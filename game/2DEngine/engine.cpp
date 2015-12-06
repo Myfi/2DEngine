@@ -1,4 +1,8 @@
 #include "engine.h"
+#include "audio.h"
+#include "string"
+
+Audio b = Audio();
 
 //=============================================================================
 // Constructor
@@ -11,6 +15,7 @@ Engine::Engine()
 //=============================================================================
 Engine::~Engine()
 {
+	b.release();
     releaseAll();           // call onLostDevice() for every graphics item
 }
 
@@ -37,7 +42,7 @@ void Engine::initialize(HWND hwnd)
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy texture")); 
     if (!assetsTexture.initialize(graphics, ASSET_DISPLAY))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing asset display texture"));
-    if (!flagTexture.initialize(graphics, ASSET_DISPLAY))
+    if (!flagTexture.initialize(graphics, END_FLAG))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing end flag texture"));
 
     // Background
@@ -47,16 +52,17 @@ void Engine::initialize(HWND hwnd)
     if (!character.initialize(this,playerNS::WIDTH,playerNS::HEIGHT,6,&characterTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing character"));
     // Used to display the current asset
-    if (!assetDisplay.initialize(graphics, 32, 32, 1, &flagTexture))
+    if (!assetDisplay.initialize(graphics, 32, 32, 1, &assetsTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing boxTest"));
-    assetDisplay.setX(5);
+	assetDisplay.setX(100);
     assetDisplay.setY(5);
     assetDisplay.setFrameDelay(0.001);
+	assetDisplay.setCurrentFrame(0);
     // End Flag
-	if (!endFlag.initialize(this, terrainNS::WIDTH, terrainNS::HEIGHT, 5, &groundTexture))
+	if (!endFlag.initialize(this, 16, 32, 0, &flagTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing end flag"));
 	endFlag.setX(600);
-	endFlag.setY(GAME_HEIGHT - terrainNS::HEIGHT);
+	endFlag.setY(GAME_HEIGHT - 32);
     // Terrain
     int dis = 20;
     for (int i = 0; i < 5; ++i)
@@ -92,13 +98,13 @@ void Engine::update()
 
 			// TODO::Update the asset display object
             if (current_asset == 0)
-                assetDisplay.setCurrentFrame(1);
+                assetDisplay.setCurrentFrame(0);
             else if (current_asset == 1)
-                assetDisplay.setCurrentFrame(10);
+                assetDisplay.setCurrentFrame(9);
             else if (current_asset == 2)
-                assetDisplay.setCurrentFrame(4);
+                assetDisplay.setCurrentFrame(3);
             else if (current_asset == 3)
-                assetDisplay.setCurrentFrame(12);
+                assetDisplay.setCurrentFrame(11);
             assetDisplay.update(frameTime);
 		}
 	    if(input->getMouseLButton())

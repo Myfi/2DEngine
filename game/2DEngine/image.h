@@ -25,6 +25,7 @@ class Image
     bool    visible;        // true when visible
     bool    initialized;    // true when successfully initialized
     bool    animComplete;   // true when loop is false and endFrame has finished displaying
+	bool	canJump;
     int startX;
     int startY;
 
