@@ -165,7 +165,6 @@ void Engine::update()
 		{
 			ground[i].update(frameTime);
 		}
-	    
 	    for (int i = 0; i < num_of_enemies; ++i)
 	    {
 	        enemies[i].update(frameTime);
