@@ -38,7 +38,7 @@ private:
     int num_of_enemies = 0;                 // Used to keep track of the enemy
                                             // we are adding
     int mTime = 0;
-    int current_asset = 1;                  // Current asset the click will add
+    int current_asset = 0;                  // Current asset the click will add
     int prevY = 0;                          // Used for collision checking
 
     char *current_file;
