@@ -92,7 +92,6 @@ void Engine::initialize(HWND hwnd)
 					throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing end flag"));
 				endFlag.setX(x);
 				endFlag.setY(y);
-
 			}
 			//Bird
 			if (type == 1) {
@@ -180,7 +179,6 @@ void Engine::update()
 			else 
 				current_asset++;
 
-			// TODO::Update the asset display object
             if (current_asset == 0)
                 assetDisplay.setCurrentFrame(0);
             else if (current_asset == 1)
@@ -352,10 +350,6 @@ void Engine::collisions()
             }
         }
     }
-
-	// MessageBox(NULL, "HELLo", "Error", MB_OK);
-	// character.setY(10);
-	// character.setVelocity(VECTOR2(character.getVelocity().x, 0));
 }
 
 //=============================================================================
@@ -434,23 +428,21 @@ int Engine::saveAll()
 
 	writeFile << 2 << " " << character.getStartX() << " " << character.getStartY() << "\n";
 
-	for (int i = 0; i < current_terrain; ++i) {
-
-		writeFile << 0 << " " << ground[i].getX() << " " << ground[i].getY() << "\n";
+	for (int i = 0; i < current_terrain; ++i) 
+    {
+		writeFile << 0 << " " << ground[i].getStartX() << " " << ground[i].getStartY() << "\n";
 	}
 
-
-	writeFile << 3 << " " << endFlag.getX() << " " << endFlag.getY() << "\n";
+	writeFile << 3 << " " << endFlag.getStartX() << " " << endFlag.getStartY() << "\n";
 
 	for (int i = 0; i < num_of_enemies; ++i)
 	{
-
-		writeFile << 1 << " " << enemies[i].getX() << " " << enemies[i].getY() << "\n";
+		writeFile << 1 << " " << enemies[i].getStartX() << " " << enemies[i].getStartY() << "\n";
 	}
 	for (int i = 0; i < num_of_spikes; ++i)
 	{
 
-		writeFile << 4 << " " << spike[i].getX() << " " << spike[i].getY() << "\n";
+		writeFile << 4 << " " << spike[i].getStartX() << " " << spike[i].getStartY() << "\n";
 	}
 
 	writeFile.close();
