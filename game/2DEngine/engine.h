@@ -8,6 +8,8 @@
 #include "player.h"
 #include "terrain.h"
 #include "enemy.h"
+#include <iostream>
+#include <fstream>
 
 //=============================================================================
 // This class is the core of the game
@@ -22,6 +24,7 @@ private:
     TextureManager enemyTexture;            // enemy texture
     TextureManager assetsTexture;           // assets texture
     TextureManager flagTexture;             // flag texture
+    TextureManager spikeTexture;            // spike texture
 
     // In game objects
     Image   background;						// Background image
@@ -29,14 +32,16 @@ private:
     Image   assetDisplay;                   // a box used for testing
 	Terrain endFlag;						// a box used for restarting
     Terrain ground[764];                    // ground entity
-    Terrain stopBlock[200];
-    Enemy   enemies[100];
+    Terrain spike[200];                     // spike entity
+    Enemy   enemies[100];                   // enemy entity
 
     // Current Asset counters
     int current_terrain = 0;                // Used to keep track of the terrain 
                                             // we are adding
     int num_of_enemies = 0;                 // Used to keep track of the enemy
                                             // we are adding
+    int num_of_spikes = 0;
+    
     int mTime = 0;
     int current_asset = 0;                  // Current asset the click will add
     int prevY = 0;                          // Used for collision checking

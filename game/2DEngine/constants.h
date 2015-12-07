@@ -19,6 +19,15 @@
 #define SAFE_ON_RESET_DEVICE(ptr)   { if(ptr) { ptr->onResetDevice(); } }
 #define TRANSCOLOR  SETCOLOR_ARGB(0,255,0,255)  // transparent color (magenta)
 
+#define ID_ADD 1
+#define ID_DATA 2
+#define ID_CHANGEFILE 4
+#define ID_NAME 5
+#define ID_XPOS 6
+#define ID_YPOS 7
+#define ID_DELETE 8
+#define ID_LOAD 9
+
 //-----------------------------------------------
 //                  Constants
 //-----------------------------------------------
@@ -29,7 +38,7 @@ const char GROUND_IMAGE[] = "pictures\\Grass.png";   // GRASS GROUND
 const char ENEMY_IMAGE[] = "pictures\\Enemies.png";
 const char ASSET_DISPLAY[] = "pictures\\Large_buttons.png";
 const char END_FLAG[] = "pictures\\End_Flag.png";
-
+const char SPIKE_IMAGE[] = "pictures\\Spike.png";
 // window
 const char CLASS_NAME[] = "2DEngine";
 const char GAME_TITLE[] = "2DEngine";

@@ -3,6 +3,8 @@
 
 Audio b = Audio();
 
+using namespace std;
+
 //=============================================================================
 // Constructor
 //=============================================================================
@@ -29,6 +31,7 @@ void Engine::initialize(HWND hwnd)
     Game::initialize(hwnd); // throws GameError
     current_terrain = 0;
     num_of_enemies = 0;
+	num_of_spikes = 0;
 
     // Textures
     if (!backgroundTexture.initialize(graphics,BACKGROUND_IMAGE))
@@ -43,38 +46,120 @@ void Engine::initialize(HWND hwnd)
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing asset display texture"));
     if (!flagTexture.initialize(graphics, END_FLAG))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing end flag texture"));
+    if (!spikeTexture.initialize(graphics, SPIKE_IMAGE))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing end spike texture"));
+
+	ifstream myfile("Saves\\Test.txt");
+	ofstream myOutfile("Saves\\TestOut.txt");
+	int x, y, type;
+	int i = 0;
+	int dis = 20;
+	//If the file was opened sucessfully, read from it
+	if (!myfile.fail()) {
+		while (myfile >> type) {
+			myfile >> x;
+			myfile >> y;
+			myOutfile << type << " " << x << " " << y << "\n";
+
+			//terrain
+			if (type == 0) {
+				if (!ground[i].initialize(this, terrainNS::WIDTH, terrainNS::HEIGHT, 5, &groundTexture))
+					throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ground"));
+				ground[i].setX(x);
+				ground[i].setY(y);
+				current_terrain++;
+				dis += 20;
+				i++;
+			}
+			//Background
+			if (type == 6) {
+				if (!background.initialize(graphics, 0, 0, 0, &backgroundTexture))
+					throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
+			}
+			//Character
+			if (type == 2) {
+				if (!character.initialize(this, playerNS::WIDTH, playerNS::HEIGHT, 6, &characterTexture))
+					throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing character"));
+				character.setX(x);                           // Character Starting Position
+				character.setY(y);
+				character.setStartX(x);                           // Character Starting Position
+				character.setStartY(y);
+				character.setVelocity(VECTOR2(0, -playerNS::SPEED));
+			}
+			//endflag
+			if (type == 3) {
+				if (!endFlag.initialize(this, 16, 32, 0, &flagTexture))
+					throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing end flag"));
+				endFlag.setX(x);
+				endFlag.setY(y);
+
+			}
+			//Bird
+			if (type == 1) {
+				if (!enemies[num_of_enemies].initialize(this, enemyNS::WIDTH, enemyNS::HEIGHT, 3, &enemyTexture))
+					throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemies"));
+				// MessageBox(NULL, "HELLo", "Error", MB_OK);
+				enemies[num_of_enemies].setX(x);
+				enemies[num_of_enemies].setY(y);
+				enemies[num_of_enemies].setStartX(x);
+				enemies[num_of_enemies].setStartY(y);
+				enemies[num_of_enemies].update(frameTime);
+				mTime = 0;
+				if (enemies[num_of_enemies].getInitialized())
+				{
+					num_of_enemies++;
+				}
+			}
+			//Spike
+			if (type == 4) {
+				if (!spike[num_of_spikes].initialize(this, terrainNS::WIDTH, terrainNS::HEIGHT, 0, &spikeTexture))
+					throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing spike"));
+				spike[num_of_spikes].setX(x);
+				spike[num_of_spikes].setY(y);
+				spike[num_of_spikes].setStartX(x);
+				spike[num_of_spikes].setStartY(y);
+				mTime = 0;
+				if (spike[num_of_spikes].getInitialized())
+				{
+					num_of_spikes++;
+				}
+			}
+		}
+	}
+	myfile.close();
+	myOutfile.close();
 
     // Background
-    if (!background.initialize(graphics,0,0,0,&backgroundTexture))
-        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
+    //if (!background.initialize(graphics,0,0,0,&backgroundTexture))
+   //     throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
     // Character
-    if (!character.initialize(this,playerNS::WIDTH,playerNS::HEIGHT,6,&characterTexture))
-        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing character"));
+    //if (!character.initialize(this,playerNS::WIDTH,playerNS::HEIGHT,6,&characterTexture))
+    //    throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing character"));
     // Used to display the current asset
     if (!assetDisplay.initialize(graphics, 32, 32, 1, &assetsTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing boxTest"));
 	assetDisplay.setX(100);
     assetDisplay.setY(5);
     assetDisplay.setFrameDelay(0.001);
-	assetDisplay.setCurrentFrame(0);
     // End Flag
-	if (!endFlag.initialize(this, 16, 32, 0, &flagTexture))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing end flag"));
-	endFlag.setX(600);
-	endFlag.setY(GAME_HEIGHT - 32);
+	///if (!endFlag.initialize(this, 16, 32, 0, &flagTexture))
+	//	throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing end flag"));
+	//endFlag.setX(600);
+	//endFlag.setY(GAME_HEIGHT - 32);
+	//endFlag.setFrames(0, 0);
     // Terrain
-    int dis = 20;
-    for (int i = 0; i < 5; ++i)
-    {
-        if (!ground[i].initialize(this, terrainNS::WIDTH, terrainNS::HEIGHT, 5, &groundTexture))
-            throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ground"));
-        ground[i].setX(GAME_WIDTH / 2 + 10 + dis);
-        current_terrain ++;
-        dis += 20;
-    }
-    character.setX(10);                           // Character Starting Position
-    character.setY(10);
-	character.setVelocity(VECTOR2(0, -playerNS::SPEED));
+    //int dis = 20;
+    //for (int i = 0; i < 5; ++i)
+    //{
+    //    if (!ground[i].initialize(this, terrainNS::WIDTH, terrainNS::HEIGHT, 5, &groundTexture))
+    //        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ground"));
+    //    ground[i].setX(GAME_WIDTH / 2 + 10 + dis);
+    //    current_terrain ++;
+    //    dis += 20;
+    //}
+    //character.setX(10);                           // Character Starting Position
+   // character.setY(10);
+	//character.setVelocity(VECTOR2(0, -playerNS::SPEED));
 
 	return;
 }
@@ -90,7 +175,7 @@ void Engine::update()
 		// If the Spacebar is pressed change the asset we are currently adding
 		if(input->wasKeyPressed(SPACE_KEY))
 		{
-			if (current_asset > 2)
+			if (current_asset > 3)
 				current_asset = 0;
 			else 
 				current_asset++;
@@ -104,6 +189,8 @@ void Engine::update()
                 assetDisplay.setCurrentFrame(3);
             else if (current_asset == 3)
                 assetDisplay.setCurrentFrame(11);
+            else if (current_asset == 4)
+                assetDisplay.setCurrentFrame(4);
             assetDisplay.update(frameTime);
 		}
 	    if(input->getMouseLButton())
@@ -112,7 +199,7 @@ void Engine::update()
 	    {
 	        if (current_asset == 0) 
 	        {
-	            if (!ground[current_terrain].initialize(this, terrainNS::WIDTH, terrainNS::HEIGHT, 5, &groundTexture))
+	            if (!ground[current_terrain].initialize(this, terrainNS::WIDTH, terrainNS::HEIGHT, 0, &groundTexture))
 	                throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ground"));
 	            // MessageBox(NULL, "HELLo", "Error", MB_OK);
 	            ground[current_terrain].setX((input->getMouseX() / 20) * 20);
@@ -158,6 +245,20 @@ void Engine::update()
 	        	endFlag.setStartY((input->getMouseY() / 20) * 20);
                 mTime = 0;
 	        }
+            else if (current_asset == 4)
+            {
+                if (!spike[num_of_spikes].initialize(this, terrainNS::WIDTH, terrainNS::HEIGHT, 0, &spikeTexture))
+                    throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing spike"));
+                spike[num_of_spikes].setX((input->getMouseX() / 20) * 20);
+                spike[num_of_spikes].setY((input->getMouseY() / 20) * 20);
+                spike[num_of_spikes].setStartX((input->getMouseX() / 20) * 20);
+                spike[num_of_spikes].setStartY((input->getMouseY() / 20) * 20);
+                mTime = 0;
+                if (spike[num_of_spikes].getInitialized())
+                {
+                    num_of_spikes++;
+                }
+            }
 	    }
 	} else {
 	    // UPDATE PLAYING
@@ -175,6 +276,7 @@ void Engine::update()
 	        enemies[i].update(frameTime);
 	    }
 	}
+	saveAll();
 }
 
 //=============================================================================
@@ -241,6 +343,14 @@ void Engine::collisions()
                 }
             }
         }
+
+        for (int i = 0; i < num_of_spikes; i++)
+        {
+            if (character.collides(spike[i], cv) && spike[i].getActive())
+            {
+                initialize(hwnd);
+            }
+        }
     }
 
 	// MessageBox(NULL, "HELLo", "Error", MB_OK);
@@ -268,6 +378,10 @@ void Engine::render()
         if (enemies[i].getActive())
             enemies[i].draw();
     }
+    for (int i = 0; i < num_of_spikes; ++i)
+    {
+        spike[i].draw();
+    }
     if (editmode)
         assetDisplay.draw();
     graphics->spriteEnd();                  // end drawing sprites
@@ -282,6 +396,10 @@ void Engine::releaseAll()
     characterTexture.onLostDevice();
 	groundTexture.onLostDevice();
     backgroundTexture.onLostDevice();
+    enemyTexture.onLostDevice();
+    assetsTexture.onLostDevice();
+    flagTexture.onLostDevice();
+    spikeTexture.onLostDevice();
 
     Game::releaseAll();
     return;
@@ -296,6 +414,10 @@ void Engine::resetAll()
     backgroundTexture.onResetDevice();
     characterTexture.onResetDevice();
 	groundTexture.onResetDevice();
+    enemyTexture.onResetDevice();
+    assetsTexture.onResetDevice();
+    flagTexture.onResetDevice();
+    spikeTexture.onResetDevice();
 
     Game::resetAll();
     return;
@@ -306,6 +428,32 @@ void Engine::resetAll()
 //=============================================================================
 int Engine::saveAll()
 {
+	ofstream writeFile("Saves\\Test.txt");
+
+	writeFile << 6 << " " << 0 << " " << 0 << "\n";
+
+	writeFile << 2 << " " << character.getStartX() << " " << character.getStartY() << "\n";
+
+	for (int i = 0; i < current_terrain; ++i) {
+
+		writeFile << 0 << " " << ground[i].getX() << " " << ground[i].getY() << "\n";
+	}
+
+
+	writeFile << 3 << " " << endFlag.getX() << " " << endFlag.getY() << "\n";
+
+	for (int i = 0; i < num_of_enemies; ++i)
+	{
+
+		writeFile << 1 << " " << enemies[i].getX() << " " << enemies[i].getY() << "\n";
+	}
+	for (int i = 0; i < num_of_spikes; ++i)
+	{
+
+		writeFile << 4 << " " << spike[i].getX() << " " << spike[i].getY() << "\n";
+	}
+
+	writeFile.close();
 	return 0;
 }
 
