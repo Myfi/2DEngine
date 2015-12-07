@@ -44,6 +44,8 @@ void Engine::initialize(HWND hwnd)
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing asset display texture"));
     if (!flagTexture.initialize(graphics, END_FLAG))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing end flag texture"));
+    if (!spikeTexture.initialize(graphics, SPIKE_IMAGE))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing end spike texture"));
 
     // Background
     if (!background.initialize(graphics,0,0,0,&backgroundTexture))
@@ -63,6 +65,7 @@ void Engine::initialize(HWND hwnd)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing end flag"));
 	endFlag.setX(600);
 	endFlag.setY(GAME_HEIGHT - 32);
+	endFlag.setFrames(0, 0);
     // Terrain
     int dis = 20;
     for (int i = 0; i < 5; ++i)
@@ -91,7 +94,7 @@ void Engine::update()
 		// If the Spacebar is pressed change the asset we are currently adding
 		if(input->wasKeyPressed(SPACE_KEY))
 		{
-			if (current_asset > 2)
+			if (current_asset > 3)
 				current_asset = 0;
 			else 
 				current_asset++;
@@ -105,6 +108,8 @@ void Engine::update()
                 assetDisplay.setCurrentFrame(3);
             else if (current_asset == 3)
                 assetDisplay.setCurrentFrame(11);
+            else if (current_asset == 4)
+                assetDisplay.setCurrentFrame(4);
             assetDisplay.update(frameTime);
 		}
 	    if(input->getMouseLButton())
@@ -113,7 +118,7 @@ void Engine::update()
 	    {
 	        if (current_asset == 0) 
 	        {
-	            if (!ground[current_terrain].initialize(this, terrainNS::WIDTH, terrainNS::HEIGHT, 5, &groundTexture))
+	            if (!ground[current_terrain].initialize(this, terrainNS::WIDTH, terrainNS::HEIGHT, 0, &groundTexture))
 	                throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ground"));
 	            // MessageBox(NULL, "HELLo", "Error", MB_OK);
 	            ground[current_terrain].setX((input->getMouseX() / 20) * 20);
@@ -159,6 +164,20 @@ void Engine::update()
 	        	endFlag.setStartY((input->getMouseY() / 20) * 20);
                 mTime = 0;
 	        }
+            else if (current_asset == 4)
+            {
+                if (!spike[num_of_spikes].initialize(this, terrainNS::WIDTH, terrainNS::HEIGHT, 0, &spikeTexture))
+                    throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing spike"));
+                spike[num_of_spikes].setX((input->getMouseX() / 20) * 20);
+                spike[num_of_spikes].setY((input->getMouseY() / 20) * 20);
+                spike[num_of_spikes].setStartX((input->getMouseX() / 20) * 20);
+                spike[num_of_spikes].setStartY((input->getMouseY() / 20) * 20);
+                mTime = 0;
+                if (spike[num_of_spikes].getInitialized())
+                {
+                    num_of_spikes++;
+                }
+            }
 	    }
 	} else {
 	    // UPDATE PLAYING
@@ -243,6 +262,14 @@ void Engine::collisions()
                 }
             }
         }
+
+        for (int i = 0; i < num_of_spikes; i++)
+        {
+            if (character.collides(spike[i], cv) && spike[i].getActive())
+            {
+                initialize(hwnd);
+            }
+        }
     }
 
 	// MessageBox(NULL, "HELLo", "Error", MB_OK);
@@ -269,6 +296,10 @@ void Engine::render()
     {
         if (enemies[i].getActive())
             enemies[i].draw();
+    }
+    for (int i = 0; i < num_of_spikes; ++i)
+    {
+        spike[i].draw();
     }
     if (editmode)
         assetDisplay.draw();

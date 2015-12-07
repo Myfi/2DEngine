@@ -29,7 +29,7 @@ const char GROUND_IMAGE[] = "pictures\\Grass.png";   // GRASS GROUND
 const char ENEMY_IMAGE[] = "pictures\\Enemies.png";
 const char ASSET_DISPLAY[] = "pictures\\Large_buttons.png";
 const char END_FLAG[] = "pictures\\End_Flag.png";
-
+const char SPIKE_IMAGE[] = "pictures\\Spike.png";
 // window
 const char CLASS_NAME[] = "2DEngine";
 const char GAME_TITLE[] = "2DEngine";

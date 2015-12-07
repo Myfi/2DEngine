@@ -1,24 +1,7 @@
-﻿Build started 12/6/2015 3:28:03 PM.
-     1>Project "C:\Users\Nathan\Desktop\GameEngine\2DEngine\game\2DEngine\2DEngine.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt engine.cpp winmain.cpp
-         engine.cpp
-     1>c:\users\nathan\desktop\gameengine\2dengine\game\2dengine\engine.cpp(59): warning C4305: 'argument': truncation from 'double' to 'float'
-     1>c:\users\nathan\desktop\gameengine\2dengine\game\2dengine\engine.cpp(72): warning C4244: 'argument': conversion from 'UINT' to 'float', possible loss of data
-     1>c:\users\nathan\desktop\gameengine\2dengine\game\2dengine\engine.cpp(119): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\nathan\desktop\gameengine\2dengine\game\2dengine\engine.cpp(120): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\nathan\desktop\gameengine\2dengine\game\2dengine\engine.cpp(135): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\nathan\desktop\gameengine\2dengine\game\2dengine\engine.cpp(136): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\nathan\desktop\gameengine\2dengine\game\2dengine\engine.cpp(148): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\nathan\desktop\gameengine\2dengine\game\2dengine\engine.cpp(149): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\nathan\desktop\gameengine\2dengine\game\2dengine\engine.cpp(156): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\nathan\desktop\gameengine\2dengine\game\2dengine\engine.cpp(157): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\nathan\desktop\gameengine\2dengine\game\2dengine\engine.cpp(165): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-         Generating Code...
-         Skipping... (no relevant changes detected)
-         winmain.cpp
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Nathan\Desktop\GameEngine\2DEngine\game\2DEngine\Debug\2DEngine.exe" /INCREMENTAL /NOLOGO Winmm.lib d3d9.lib d3dx9.lib xinput.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\Nathan\Desktop\GameEngine\2DEngine\game\2DEngine\Debug\2DEngine.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Nathan\Desktop\GameEngine\2DEngine\game\2DEngine\Debug\2DEngine.lib" /MACHINE:X86 Debug\audio.obj
+﻿Build started 12/6/2015 7:17:48 PM.
+     1>Project "D:\Git\2DEngine\game\2DEngine\2DEngine.vcxproj" on node 2 (Build target(s)).
+     1>Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Git\2DEngine\game\2DEngine\Debug\2DEngine.exe" /INCREMENTAL /NOLOGO Winmm.lib d3d9.lib d3dx9.lib xinput.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\Git\2DEngine\game\2DEngine\Debug\2DEngine.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Git\2DEngine\game\2DEngine\Debug\2DEngine.lib" /MACHINE:X86 Debug\audio.obj
          Debug\player.obj
          Debug\engine.obj
          Debug\game.obj
@@ -30,9 +13,9 @@
          Debug\terrain.obj
          Debug\textureManager.obj
          Debug\winmain.obj
-         2DEngine.vcxproj -> C:\Users\Nathan\Desktop\GameEngine\2DEngine\game\2DEngine\Debug\2DEngine.exe
-     1>Done Building Project "C:\Users\Nathan\Desktop\GameEngine\2DEngine\game\2DEngine\2DEngine.vcxproj" (Build target(s)).
+         2DEngine.vcxproj -> D:\Git\2DEngine\game\2DEngine\Debug\2DEngine.exe
+     1>Done Building Project "D:\Git\2DEngine\game\2DEngine\2DEngine.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:02.84
+Time Elapsed 00:00:00.45
