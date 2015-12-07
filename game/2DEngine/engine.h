@@ -24,7 +24,7 @@ private:
     TextureManager enemyTexture;            // enemy texture
     TextureManager assetsTexture;           // assets texture
     TextureManager flagTexture;             // flag texture
-    TextureManager spikeTexture;
+    TextureManager spikeTexture;            // spike texture
 
     // In game objects
     Image   background;						// Background image
@@ -32,8 +32,8 @@ private:
     Image   assetDisplay;                   // a box used for testing
 	Terrain endFlag;						// a box used for restarting
     Terrain ground[764];                    // ground entity
-    Terrain spike[200];
-    Enemy   enemies[100];
+    Terrain spike[200];                     // spike entity
+    Enemy   enemies[100];                   // enemy entity
 
     // Current Asset counters
     int current_terrain = 0;                // Used to keep track of the terrain 

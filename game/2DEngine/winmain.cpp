@@ -136,10 +136,7 @@ void UpdateList(HWND Window) {
 	myfile.close();
 }
 
-
 HWND fileLoad;
-
-
 
 LRESULT WINAPI Object_List(HWND Window,
 	UINT msg,
