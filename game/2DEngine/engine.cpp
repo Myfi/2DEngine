@@ -315,6 +315,10 @@ void Engine::releaseAll()
     characterTexture.onLostDevice();
 	groundTexture.onLostDevice();
     backgroundTexture.onLostDevice();
+    enemyTexture.onLostDevice();
+    assetsTexture.onLostDevice();
+    flagTexture.onLostDevice();
+    spikeTexture.onLostDevice();
 
     Game::releaseAll();
     return;
@@ -329,6 +333,10 @@ void Engine::resetAll()
     backgroundTexture.onResetDevice();
     characterTexture.onResetDevice();
 	groundTexture.onResetDevice();
+    enemyTexture.onResetDevice();
+    assetsTexture.onResetDevice();
+    flagTexture.onResetDevice();
+    spikeTexture.onResetDevice();
 
     Game::resetAll();
     return;
