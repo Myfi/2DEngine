@@ -8,6 +8,8 @@
 #include "player.h"
 #include "terrain.h"
 #include "enemy.h"
+#include <iostream>
+#include <fstream>
 
 //=============================================================================
 // This class is the core of the game

@@ -4,6 +4,8 @@
 
 Audio b = Audio();
 
+using namespace std;
+
 //=============================================================================
 // Constructor
 //=============================================================================
@@ -47,12 +49,78 @@ void Engine::initialize(HWND hwnd)
     if (!spikeTexture.initialize(graphics, SPIKE_IMAGE))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing end spike texture"));
 
+	ifstream myfile("Saves\\Test.txt");
+	ofstream myOutfile("Saves\\TestOut.txt");
+	int x, y, type;
+	int i = 0;
+	int dis = 20;
+	//If the file was opened sucessfully, read from it
+	if (!myfile.fail()) {
+		while (myfile >> type) {
+			myfile >> x;
+			myfile >> y;
+			myOutfile << type << " " << x << " " << y << "\n";
+
+			//terrain
+			if (type == 0) {
+				if (!ground[i].initialize(this, terrainNS::WIDTH, terrainNS::HEIGHT, 5, &groundTexture))
+					throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ground"));
+				ground[i].setX(x);
+				current_terrain++;
+				dis += 20;
+				i++;
+			}
+			//Background
+			if (type == 6) {
+				if (!background.initialize(graphics, 0, 0, 0, &backgroundTexture))
+					throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
+			}
+			//Character
+			if (type == 2) {
+				if (!character.initialize(this, playerNS::WIDTH, playerNS::HEIGHT, 6, &characterTexture))
+					throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing character"));
+				character.setX(x);                           // Character Starting Position
+				character.setY(y);
+				character.setVelocity(VECTOR2(0, -playerNS::SPEED));
+			}
+			//endflag
+			if (type == 3) {
+				if (!endFlag.initialize(this, 16, 32, 0, &flagTexture))
+					throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing end flag"));
+				endFlag.setX(x);
+				endFlag.setY(y);
+
+			}
+			//Bird
+			if (type == 1) {
+				if (!enemies[num_of_enemies].initialize(this, enemyNS::WIDTH, enemyNS::HEIGHT, 3, &enemyTexture))
+					throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemies"));
+				// MessageBox(NULL, "HELLo", "Error", MB_OK);
+				enemies[num_of_enemies].setX(x);
+				enemies[num_of_enemies].setY(y);
+				enemies[num_of_enemies].setStartX(x);
+				enemies[num_of_enemies].setStartY(y);
+				enemies[num_of_enemies].update(frameTime);
+				mTime = 0;
+				if (enemies[num_of_enemies].getInitialized())
+				{
+					num_of_enemies++;
+				}
+			}
+			if (type == 5) {
+
+			}
+		}
+	}
+	myfile.close();
+	myOutfile.close();
+
     // Background
-    if (!background.initialize(graphics,0,0,0,&backgroundTexture))
-        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
+    //if (!background.initialize(graphics,0,0,0,&backgroundTexture))
+   //     throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
     // Character
-    if (!character.initialize(this,playerNS::WIDTH,playerNS::HEIGHT,6,&characterTexture))
-        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing character"));
+    //if (!character.initialize(this,playerNS::WIDTH,playerNS::HEIGHT,6,&characterTexture))
+    //    throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing character"));
     // Used to display the current asset
     if (!assetDisplay.initialize(graphics, 32, 32, 1, &assetsTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing boxTest"));
@@ -61,24 +129,24 @@ void Engine::initialize(HWND hwnd)
     assetDisplay.setFrameDelay(0.001);
 	assetDisplay.setCurrentFrame(0);
     // End Flag
-	if (!endFlag.initialize(this, 16, 32, 0, &flagTexture))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing end flag"));
-	endFlag.setX(600);
-	endFlag.setY(GAME_HEIGHT - 32);
-	endFlag.setFrames(0, 0);
+	///if (!endFlag.initialize(this, 16, 32, 0, &flagTexture))
+	//	throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing end flag"));
+	//endFlag.setX(600);
+	//endFlag.setY(GAME_HEIGHT - 32);
+	//endFlag.setFrames(0, 0);
     // Terrain
-    int dis = 20;
-    for (int i = 0; i < 5; ++i)
-    {
-        if (!ground[i].initialize(this, terrainNS::WIDTH, terrainNS::HEIGHT, 5, &groundTexture))
-            throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ground"));
-        ground[i].setX(GAME_WIDTH / 2 + 10 + dis);
-        current_terrain ++;
-        dis += 20;
-    }
-    character.setX(10);                           // Character Starting Position
-    character.setY(10);
-	character.setVelocity(VECTOR2(0, -playerNS::SPEED));
+    //int dis = 20;
+    //for (int i = 0; i < 5; ++i)
+    //{
+    //    if (!ground[i].initialize(this, terrainNS::WIDTH, terrainNS::HEIGHT, 5, &groundTexture))
+    //        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ground"));
+    //    ground[i].setX(GAME_WIDTH / 2 + 10 + dis);
+    //    current_terrain ++;
+    //    dis += 20;
+    //}
+    //character.setX(10);                           // Character Starting Position
+   // character.setY(10);
+	//character.setVelocity(VECTOR2(0, -playerNS::SPEED));
 
 	return;
 }

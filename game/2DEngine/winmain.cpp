@@ -5,15 +5,38 @@
 #include <stdlib.h>             // for detecting memory leaks
 #include <crtdbg.h>             // for detecting memory leaks
 #include "engine.h"
+#include <iostream>
+#include <fstream>
+#include <windowsx.h>
+#include <vector>
+#include "NuObject.h"
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <tchar.h>
+#include <stdio.h>
+#include <string.h>
+
+using namespace std;
 
 // Function prototypes
-int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int); 
+int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int);
 bool CreateMainWindow(HWND &, HINSTANCE, int);
-LRESULT WINAPI WinProc(HWND, UINT, WPARAM, LPARAM); 
+LRESULT WINAPI WinProc(HWND, UINT, WPARAM, LPARAM);
+
+
+LRESULT WINAPI Object_List(HWND, UINT, WPARAM, LPARAM);
+LRESULT WINAPI Object_Details(HWND, UINT, WPARAM, LPARAM);
+
+HWND g_hwndChildren[4];
 
 // Game pointer
 Engine *game = NULL;
 HWND hwnd = NULL;
+
+int arrSize;
+
+vector <NuObject*> List[1];
+vector <string> ListNames[1];
 
 //=============================================================================
 // Starting point for a Windows application
@@ -74,6 +97,150 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance,
     return 0;
 }
 
+//=============================================================================
+// Read files from the directory
+//=============================================================================
+void UpdateList(HWND Window) {
+
+	char buffer[MAX_PATH];
+	GetModuleFileName(NULL, buffer, MAX_PATH);
+	string y = string(buffer).substr(0, string(buffer).find_last_of("\\/"));
+	y = y.substr(0, y.find_last_of("\\/"));
+	y = y.append("\\Saves\\*");
+
+	WIN32_FIND_DATA FileData;
+	HANDLE hFind;
+	LPCSTR pos = y.c_str();
+	hFind = FindFirstFile(pos, &FileData);
+	int run = 1;
+	while (FindNextFile(hFind, &FileData) != 0) {
+		string yz = FileData.cFileName;
+		LPCSTR yy = yz.c_str();
+		MessageBox(Window, yy, "OK", MB_OK);
+		string tempname = string(FileData.cFileName).substr(string(FileData.cFileName).find_last_of("."), 5);
+
+		LPCSTR postemp = tempname.c_str();
+		if (tempname == ".txt") {
+			ListNames->push_back(yz);
+			LPCSTR name = string(FileData.cFileName).c_str();
+
+			NuObject *temp = new NuObject(Window, yy, 10, run * 20);
+
+			List->push_back(temp);
+			run++;
+		}
+	}
+	arrSize = run - 1;
+	ifstream myfile(y);
+
+	myfile.close();
+}
+
+
+HWND fileLoad;
+
+
+
+LRESULT WINAPI Object_List(HWND Window,
+	UINT msg,
+	WPARAM wParam,
+	LPARAM lParam)
+{
+	LRESULT Result = 0;
+	switch (msg)
+	{
+
+	case WM_CREATE: {
+
+		fileLoad = CreateWindow("EDIT", 0, WS_BORDER | WS_CHILD | WS_VISIBLE, 0, 0, 80, 20, Window, NULL, NULL, 0);
+
+		//Create the Create New Object button (this may be removed)
+
+		CreateWindow(
+			TEXT("BUTTON"),					/* Class Name */
+			TEXT("Load File"),             /* Title */
+			WS_VISIBLE | WS_CHILD,          /* Style */
+			80, 0,					/* Position */
+			80, 20,							/* Size */
+			Window,                         /* Parent */
+			(HMENU)ID_LOAD,                 /* No menu */
+			NULL,							/* Instance */
+			0);
+		//
+		UpdateList(Window);
+		break;
+	}
+	case WM_COMMAND: {
+
+		if (LOWORD(wParam == ID_ADD)) {
+			//writeToFile();
+			//call UpdateList
+			//addObj(0, 0, 1);
+			UpdateList(Window);
+			InvalidateRect(Window, NULL, TRUE);
+			//MessageBox(Window, "Got Here", "OK", MB_OK);
+		}
+	case BN_CLICKED: {
+		if (LOWORD(wParam == ID_DATA)) {
+			MessageBox(Window, "Got Here", "OK", MB_OK);
+			//Grab what button was pressed, and set the CurEdit var to it's array position
+			for (int i = 0; i < arrSize; i++) {
+				if ((LPARAM)lParam == (LPARAM)List->at(i)->getReference()) {
+					LPCSTR namechanfe = ListNames->at(i).c_str();
+					SetWindowText(fileLoad, namechanfe);
+					MessageBox(Window, "Got Here", "OK", MB_OK);
+					//CurEdit = i;
+				}
+			}
+
+			//SendMessage((HWND)g_hwndChildren[2], BN_CLICKED, (WPARAM)wParam, (LPARAM)lParam);
+
+
+		}
+		if (LOWORD(wParam == ID_LOAD)) {
+
+			char sbuffer[20];
+			GetWindowText(fileLoad, sbuffer, 20);
+			string path = "Saves\\";
+			path.append(sbuffer);
+
+
+
+			//The path should be correct for the given file
+			//LPCSTR fiflePath = path.c_str();
+			//ifstream myfile(path);
+			//if (!myfile.fail()) {
+			//	MessageBox(Window, fiflePath, "OK", MB_OK);
+			//}
+			//file = sbuffer;
+			//set that char array to the window text
+
+			//eraseVectors();
+			//UpdateList(Window);
+
+		}
+		break;
+	}
+					 break;
+	}
+
+	case WM_ACTIVATEAPP:
+	{
+		OutputDebugStringA("WM_ACTIVATEAPP\n");
+	} break;
+
+	default:
+	{
+		Result = DefWindowProc(Window, msg, wParam, lParam);
+	} break;
+	case WM_MOUSEACTIVATE:
+	{
+		SetFocus(Window);
+	}
+	}
+
+	return(Result);
+}
 //=============================================================================
 // window event callback function
 //=============================================================================
