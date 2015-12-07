@@ -230,6 +230,10 @@ void Engine::update()
                 }
             }
 	    }
+        if (input->isKeyDown(CTRL_KEY) && input->wasKeyPressed(CHARACTER_DOWN_KEY))
+        {
+            saveAll();
+        }
 	} else {
 	    // UPDATE PLAYING
 	    prevY = character.getY();
@@ -246,7 +250,6 @@ void Engine::update()
 	        enemies[i].update(frameTime);
 	    }
 	}
-	saveAll();
 }
 
 //=============================================================================
@@ -414,8 +417,8 @@ int Engine::saveAll()
 
 		writeFile << 4 << " " << spike[i].getStartX() << " " << spike[i].getStartY() << "\n";
 	}
-
 	writeFile.close();
+
 	return 0;
 }
 
