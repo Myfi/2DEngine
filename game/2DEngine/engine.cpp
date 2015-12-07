@@ -128,37 +128,11 @@ void Engine::initialize(HWND hwnd)
 	myfile.close();
 	myOutfile.close();
 
-    // Background
-    //if (!background.initialize(graphics,0,0,0,&backgroundTexture))
-   //     throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
-    // Character
-    //if (!character.initialize(this,playerNS::WIDTH,playerNS::HEIGHT,6,&characterTexture))
-    //    throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing character"));
-    // Used to display the current asset
     if (!assetDisplay.initialize(graphics, 32, 32, 1, &assetsTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing boxTest"));
 	assetDisplay.setX(100);
     assetDisplay.setY(5);
     assetDisplay.setFrameDelay(0.001);
-    // End Flag
-	///if (!endFlag.initialize(this, 16, 32, 0, &flagTexture))
-	//	throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing end flag"));
-	//endFlag.setX(600);
-	//endFlag.setY(GAME_HEIGHT - 32);
-	//endFlag.setFrames(0, 0);
-    // Terrain
-    //int dis = 20;
-    //for (int i = 0; i < 5; ++i)
-    //{
-    //    if (!ground[i].initialize(this, terrainNS::WIDTH, terrainNS::HEIGHT, 5, &groundTexture))
-    //        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ground"));
-    //    ground[i].setX(GAME_WIDTH / 2 + 10 + dis);
-    //    current_terrain ++;
-    //    dis += 20;
-    //}
-    //character.setX(10);                           // Character Starting Position
-   // character.setY(10);
-	//character.setVelocity(VECTOR2(0, -playerNS::SPEED));
 
 	return;
 }
@@ -199,7 +173,6 @@ void Engine::update()
 	        {
 	            if (!ground[current_terrain].initialize(this, terrainNS::WIDTH, terrainNS::HEIGHT, 0, &groundTexture))
 	                throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ground"));
-	            // MessageBox(NULL, "HELLo", "Error", MB_OK);
 	            ground[current_terrain].setX((input->getMouseX() / 20) * 20);
 	    		ground[current_terrain].setY((input->getMouseY() / 20) * 20);
 	    		ground[current_terrain].setStartX((input->getMouseX() / 20) * 20);
@@ -215,7 +188,6 @@ void Engine::update()
 	        {
 	            if (!enemies[num_of_enemies].initialize(this, enemyNS::WIDTH, enemyNS::HEIGHT, 3, &enemyTexture))
 	                throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemies"));
-	            // MessageBox(NULL, "HELLo", "Error", MB_OK);
 	            enemies[num_of_enemies].setX((input->getMouseX() / 20) * 20);
 	            enemies[num_of_enemies].setY((input->getMouseY() / 20) * 20);
 	            enemies[num_of_enemies].setStartX((input->getMouseX() / 20) * 20);
@@ -336,7 +308,6 @@ void Engine::collisions()
                     enemies[i].setActive(false);
                     character.jump();
                 } else {
-                    // MessageBox(NULL, "I die", "Error", MB_OK);
     				initialize(hwnd);
                 }
             }
@@ -363,7 +334,6 @@ void Engine::render()
     character.draw();
 	for (int i = 0; i < current_terrain; ++i)
         ground[i].draw();
-	
 
 	endFlag.draw();
 
