@@ -32,6 +32,7 @@ void Engine::initialize(HWND hwnd)
     Game::initialize(hwnd); // throws GameError
     current_terrain = 0;
     num_of_enemies = 0;
+	num_of_spikes = 0;
 
     // Textures
     if (!backgroundTexture.initialize(graphics,BACKGROUND_IMAGE))
@@ -66,6 +67,7 @@ void Engine::initialize(HWND hwnd)
 				if (!ground[i].initialize(this, terrainNS::WIDTH, terrainNS::HEIGHT, 5, &groundTexture))
 					throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ground"));
 				ground[i].setX(x);
+				ground[i].setY(y);
 				current_terrain++;
 				dis += 20;
 				i++;
@@ -81,6 +83,8 @@ void Engine::initialize(HWND hwnd)
 					throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing character"));
 				character.setX(x);                           // Character Starting Position
 				character.setY(y);
+				character.setStartX(x);                           // Character Starting Position
+				character.setStartY(y);
 				character.setVelocity(VECTOR2(0, -playerNS::SPEED));
 			}
 			//endflag
@@ -107,8 +111,19 @@ void Engine::initialize(HWND hwnd)
 					num_of_enemies++;
 				}
 			}
-			if (type == 5) {
-
+			//Spike
+			if (type == 4) {
+				if (!spike[num_of_spikes].initialize(this, terrainNS::WIDTH, terrainNS::HEIGHT, 0, &spikeTexture))
+					throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing spike"));
+				spike[num_of_spikes].setX(x);
+				spike[num_of_spikes].setY(y);
+				spike[num_of_spikes].setStartX(x);
+				spike[num_of_spikes].setStartY(y);
+				mTime = 0;
+				if (spike[num_of_spikes].getInitialized())
+				{
+					num_of_spikes++;
+				}
 			}
 		}
 	}
@@ -263,6 +278,7 @@ void Engine::update()
 	        enemies[i].update(frameTime);
 	    }
 	}
+	saveAll();
 }
 
 //=============================================================================
@@ -414,6 +430,32 @@ void Engine::resetAll()
 //=============================================================================
 int Engine::saveAll()
 {
+	ofstream writeFile("Saves\\Test.txt");
+
+	writeFile << 6 << " " << 0 << " " << 0 << "\n";
+
+	writeFile << 2 << " " << character.getStartX() << " " << character.getStartY() << "\n";
+
+	for (int i = 0; i < current_terrain; ++i) {
+
+		writeFile << 0 << " " << ground[i].getX() << " " << ground[i].getY() << "\n";
+	}
+
+
+	writeFile << 3 << " " << endFlag.getX() << " " << endFlag.getY() << "\n";
+
+	for (int i = 0; i < num_of_enemies; ++i)
+	{
+
+		writeFile << 1 << " " << enemies[i].getX() << " " << enemies[i].getY() << "\n";
+	}
+	for (int i = 0; i < num_of_spikes; ++i)
+	{
+
+		writeFile << 4 << " " << spike[i].getX() << " " << spike[i].getY() << "\n";
+	}
+
+	writeFile.close();
 	return 0;
 }
 
