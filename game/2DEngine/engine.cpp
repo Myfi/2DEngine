@@ -32,11 +32,10 @@ void Engine::initialize(HWND hwnd)
     Game::initialize(hwnd); // throws GameError
     current_terrain = 0;
     num_of_enemies = 0;
-    num_of_spikes = 0;
 
     // Textures
     if (!backgroundTexture.initialize(graphics,BACKGROUND_IMAGE))
-    throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
     if (!characterTexture.initialize(graphics,CHARACTER_IMAGE))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing character texture"));
 	if (!groundTexture.initialize(graphics, GROUND_IMAGE))
@@ -90,6 +89,7 @@ void Engine::initialize(HWND hwnd)
 					throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing end flag"));
 				endFlag.setX(x);
 				endFlag.setY(y);
+
 			}
 			//Bird
 			if (type == 1) {

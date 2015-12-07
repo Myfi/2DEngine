@@ -31,8 +31,3 @@ build
 
 *.sdf
 *.opensdf
-*.idp
-*.pdb
-*.ilk
-*.log
-*.suo

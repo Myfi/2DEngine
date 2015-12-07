@@ -71,6 +71,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="audio.cpp" />
+    <ClCompile Include="NuObject.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="engine.cpp" />
     <ClCompile Include="game.cpp" />
@@ -86,6 +87,7 @@
   <ItemGroup>
     <ClInclude Include="audio.h" />
     <ClInclude Include="enemy.h" />
+    <ClInclude Include="NuObject.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="constants.h" />
     <ClInclude Include="engine.h" />

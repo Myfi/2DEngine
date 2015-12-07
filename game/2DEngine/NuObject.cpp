@@ -2,6 +2,7 @@
 
 NuObject::NuObject(HWND parent, LPCSTR title, int x, int y)
 {
+	//name = title;
 	name = title;
 	reference = CreateWindow(
 		TEXT("BUTTON"),                 /* Class Name */
