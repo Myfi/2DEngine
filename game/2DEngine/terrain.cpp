@@ -12,7 +12,7 @@ Terrain::Terrain()
 	velocity.y = 0;
 	frameDelay = .2f;
 	startFrame = 0;
-	endFrame = 4;
+	endFrame = 0;
 	currentFrame = startFrame;
 	edge.top = -terrainNS::HEIGHT /2;             // set collision edges
 	edge.bottom = terrainNS::HEIGHT / 2;

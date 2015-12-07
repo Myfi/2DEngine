@@ -1,9 +1,12 @@
+#ifndef _NUOBJECT_H
+#define _NUOBJECT_H
+
 #pragma once
 #include "constants.h"
 class NuObject
 {
 public:
-	NuObject(HWND, LPCSTR, int, int);
+	NuObject(HWND parent, LPCSTR title, int x, int y);
 	LPCSTR name;
 	HWND reference;
 
@@ -66,3 +69,5 @@ public:
 		return reference;
 	}
 };
+
+#endif

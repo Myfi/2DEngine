@@ -19,6 +19,15 @@
 #define SAFE_ON_RESET_DEVICE(ptr)   { if(ptr) { ptr->onResetDevice(); } }
 #define TRANSCOLOR  SETCOLOR_ARGB(0,255,0,255)  // transparent color (magenta)
 
+#define ID_ADD 1
+#define ID_DATA 2
+#define ID_CHANGEFILE 4
+#define ID_NAME 5
+#define ID_XPOS 6
+#define ID_YPOS 7
+#define ID_DELETE 8
+#define ID_LOAD 9
+
 //-----------------------------------------------
 //                  Constants
 //-----------------------------------------------
