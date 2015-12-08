@@ -49,8 +49,8 @@ void Engine::initialize(HWND hwnd)
     if (!spikeTexture.initialize(graphics, SPIKE_IMAGE))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing end spike texture"));
 
-	ifstream myfile("Saves\\Test.txt");
-	ofstream myOutfile("Saves\\TestOut.txt");
+	ifstream myfile(current_file);
+	//ofstream myOutfile("Saves\\TestOut.txt");
 	int x, y, type;
 	int i = 0;
 	int dis = 20;
@@ -59,7 +59,7 @@ void Engine::initialize(HWND hwnd)
 		while (myfile >> type) {
 			myfile >> x;
 			myfile >> y;
-			myOutfile << type << " " << x << " " << y << "\n";
+			//myOutfile << type << " " << x << " " << y << "\n";
 
 			//terrain
 			if (type == 0) {
@@ -67,6 +67,8 @@ void Engine::initialize(HWND hwnd)
 					throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing ground"));
 				ground[i].setX(x);
 				ground[i].setY(y);
+				ground[i].setStartX(x);
+				ground[i].setStartY(y);
 				current_terrain++;
 				dis += 20;
 				i++;
@@ -92,6 +94,8 @@ void Engine::initialize(HWND hwnd)
 					throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing end flag"));
 				endFlag.setX(x);
 				endFlag.setY(y);
+				endFlag.setStartX(x);
+				endFlag.setStartY(y);
 			}
 			//Bird
 			if (type == 1) {
@@ -126,7 +130,7 @@ void Engine::initialize(HWND hwnd)
 		}
 	}
 	myfile.close();
-	myOutfile.close();
+	//myOutfile.close();
 
     if (!assetDisplay.initialize(graphics, 32, 32, 1, &assetsTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing boxTest"));
@@ -389,13 +393,22 @@ void Engine::resetAll()
     Game::resetAll();
     return;
 }
+//=============================================================================
+// Change the file path
+//=============================================================================
+void Engine::changeFile(const char* input)
+{
+	//throw(GameError(gameErrorNS::FATAL_ERROR, current_file + " || " + input));
+	current_file = input;
+	initialize(hwnd);
+}
 
 //=============================================================================
 // Saves all of the currently initialized entities
 //=============================================================================
 int Engine::saveAll()
 {
-	ofstream writeFile("Saves\\Test.txt");
+	ofstream writeFile(current_file);
 
 	writeFile << 6 << " " << 0 << " " << 0 << "\n";
 

@@ -43,12 +43,15 @@ private:
     int num_of_spikes = 0;
     
     int mTime = 0;
-    int current_asset = 0;                  // Current asset the click will add
+    
     int prevY = 0;                          // Used for collision checking
 
-    char *current_file;
+	std::string current_file = "Saves\\Test.txt";
 
 public:
+
+	int current_asset = 0;                  // Current asset the click will add
+
     // Constructor
     Engine();
 
@@ -66,6 +69,7 @@ public:
     void releaseAll();
     void resetAll();
     // Used for writing to a file saving all assets currently on the map
+	void changeFile(const char* input);
     int saveAll();
 	int mousepos_to_gridX(int X);
 	int mousepos_to_gridY(int Y);

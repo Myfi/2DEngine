@@ -27,6 +27,7 @@
 #define ID_YPOS 7
 #define ID_DELETE 8
 #define ID_LOAD 9
+#define ID_CREATE 10
 
 //-----------------------------------------------
 //                  Constants
@@ -41,6 +42,8 @@ const char END_FLAG[] = "pictures\\End_Flag.png";
 const char SPIKE_IMAGE[] = "pictures\\Spike.png";
 // window
 const char CLASS_NAME[] = "2DEngine";
+const char CLASS_NAMEZ[] = "Tryit";
+const char CLASS_NAM[] = "Again";
 const char GAME_TITLE[] = "2DEngine";
 const bool FULLSCREEN = false;              // windowed or fullscreen
 const UINT GAME_WIDTH =  640;               // width of game in pixels

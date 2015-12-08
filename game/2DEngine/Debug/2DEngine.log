@@ -1,46 +1,26 @@
-﻿Build started 12/6/2015 11:37:40 PM.
-     1>Project "D:\Git\2DEngine\game\2DEngine\2DEngine.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt engine.cpp terrain.cpp
-         terrain.cpp
-         engine.cpp
-     1>d:\git\2dengine\game\2dengine\engine.cpp(68): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>d:\git\2dengine\game\2dengine\engine.cpp(82): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>d:\git\2dengine\game\2dengine\engine.cpp(83): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>d:\git\2dengine\game\2dengine\engine.cpp(90): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>d:\git\2dengine\game\2dengine\engine.cpp(91): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>d:\git\2dengine\game\2dengine\engine.cpp(99): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>d:\git\2dengine\game\2dengine\engine.cpp(100): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>d:\git\2dengine\game\2dengine\engine.cpp(129): warning C4305: 'argument' : truncation from 'double' to 'float'
-     1>d:\git\2dengine\game\2dengine\engine.cpp(191): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>d:\git\2dengine\game\2dengine\engine.cpp(192): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>d:\git\2dengine\game\2dengine\engine.cpp(207): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>d:\git\2dengine\game\2dengine\engine.cpp(208): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>d:\git\2dengine\game\2dengine\engine.cpp(220): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>d:\git\2dengine\game\2dengine\engine.cpp(221): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>d:\git\2dengine\game\2dengine\engine.cpp(228): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>d:\git\2dengine\game\2dengine\engine.cpp(229): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>d:\git\2dengine\game\2dengine\engine.cpp(238): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>d:\git\2dengine\game\2dengine\engine.cpp(239): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>d:\git\2dengine\game\2dengine\engine.cpp(251): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-         Generating Code...
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Git\2DEngine\game\2DEngine\Debug\2DEngine.exe" /INCREMENTAL /NOLOGO Winmm.lib d3d9.lib d3dx9.lib xinput.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\Git\2DEngine\game\2DEngine\Debug\2DEngine.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Git\2DEngine\game\2DEngine\Debug\2DEngine.lib" /MACHINE:X86 Debug\audio.obj
-         Debug\NuObject.obj
-         Debug\player.obj
-         Debug\engine.obj
-         Debug\game.obj
-         Debug\graphics.obj
-         Debug\image.obj
-         Debug\input.obj
-         Debug\entity.obj
-         Debug\enemy.obj
-         Debug\terrain.obj
-         Debug\textureManager.obj
-         Debug\winmain.obj
-         2DEngine.vcxproj -> D:\Git\2DEngine\game\2DEngine\Debug\2DEngine.exe
-     1>Done Building Project "D:\Git\2DEngine\game\2DEngine\2DEngine.vcxproj" (Build target(s)).
-
-Build succeeded.
-
-Time Elapsed 00:00:01.43
+﻿  winmain.cpp
+  engine.cpp
+c:\users\colin\documents\github\2dengine\game\2dengine\engine.cpp(68): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+c:\users\colin\documents\github\2dengine\game\2dengine\engine.cpp(69): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+c:\users\colin\documents\github\2dengine\game\2dengine\engine.cpp(85): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+c:\users\colin\documents\github\2dengine\game\2dengine\engine.cpp(86): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+c:\users\colin\documents\github\2dengine\game\2dengine\engine.cpp(95): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+c:\users\colin\documents\github\2dengine\game\2dengine\engine.cpp(96): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+c:\users\colin\documents\github\2dengine\game\2dengine\engine.cpp(105): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+c:\users\colin\documents\github\2dengine\game\2dengine\engine.cpp(106): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+c:\users\colin\documents\github\2dengine\game\2dengine\engine.cpp(120): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+c:\users\colin\documents\github\2dengine\game\2dengine\engine.cpp(121): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+c:\users\colin\documents\github\2dengine\game\2dengine\engine.cpp(139): warning C4305: 'argument' : truncation from 'double' to 'float'
+c:\users\colin\documents\github\2dengine\game\2dengine\engine.cpp(180): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+c:\users\colin\documents\github\2dengine\game\2dengine\engine.cpp(181): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+c:\users\colin\documents\github\2dengine\game\2dengine\engine.cpp(195): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+c:\users\colin\documents\github\2dengine\game\2dengine\engine.cpp(196): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+c:\users\colin\documents\github\2dengine\game\2dengine\engine.cpp(208): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+c:\users\colin\documents\github\2dengine\game\2dengine\engine.cpp(209): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+c:\users\colin\documents\github\2dengine\game\2dengine\engine.cpp(216): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+c:\users\colin\documents\github\2dengine\game\2dengine\engine.cpp(217): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+c:\users\colin\documents\github\2dengine\game\2dengine\engine.cpp(226): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+c:\users\colin\documents\github\2dengine\game\2dengine\engine.cpp(227): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+c:\users\colin\documents\github\2dengine\game\2dengine\engine.cpp(243): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+  Generating Code...
+  2DEngine.vcxproj -> C:\Users\Colin\Documents\GitHub\2DEngine\game\2DEngine\Debug\2DEngine.exe
