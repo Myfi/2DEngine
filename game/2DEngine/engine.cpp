@@ -448,6 +448,7 @@ void Engine::deleteAll()
     writeFile << 6 << " " << 0 << " " << 0 << "\n";
     writeFile << 2 << " " << character.getStartX() << " " << character.getStartY() << "\n";
     writeFile << 3 << " " << endFlag.getStartX() << " " << endFlag.getStartY() << "\n";
+    writeFile.close();
     initialize(hwnd);
 }
 
