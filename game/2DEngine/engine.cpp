@@ -234,6 +234,10 @@ void Engine::update()
                 }
             }
 	    }
+        if (input->isKeyDown(CTRL_KEY) && input->wasKeyPressed(X_KEY))
+        {
+            deleteAll();
+        }
         if (input->isKeyDown(CTRL_KEY) && input->wasKeyPressed(CHARACTER_DOWN_KEY))
         {
             saveAll();
@@ -433,6 +437,18 @@ int Engine::saveAll()
 	writeFile.close();
 
 	return 0;
+}
+
+//=============================================================================
+// Cleans the current file
+//=============================================================================
+void Engine::deleteAll()
+{
+    ofstream writeFile(current_file);
+    writeFile << 6 << " " << 0 << " " << 0 << "\n";
+    writeFile << 2 << " " << character.getStartX() << " " << character.getStartY() << "\n";
+    writeFile << 3 << " " << endFlag.getStartX() << " " << endFlag.getStartY() << "\n";
+    initialize(hwnd);
 }
 
 //=============================================================================

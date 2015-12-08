@@ -71,6 +71,7 @@ public:
     // Used for writing to a file saving all assets currently on the map
 	void changeFile(const char* input);
     int saveAll();
+    void deleteAll();
 	int mousepos_to_gridX(int X);
 	int mousepos_to_gridY(int Y);
 };

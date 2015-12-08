@@ -66,6 +66,7 @@ const UCHAR CHARACTER_LEFT_KEY    = 0x41;   // left arrow
 const UCHAR CHARACTER_RIGHT_KEY   = 0x44;  	// right arrow
 const UCHAR CHARACTER_UP_KEY      = 0x57;   // up arrow
 const UCHAR CHARACTER_DOWN_KEY    = 0x53;   // down arrow
+const UCHAR X_KEY    	 = 0x58;   			// x key
 const UCHAR SPACE_KEY 	 = VK_SPACE;		// Spacebar
 const UCHAR LEFTMBUTTON  = VK_LBUTTON;
 const UCHAR CTRL_KEY 	 = VK_CONTROL;
