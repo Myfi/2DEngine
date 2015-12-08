@@ -209,10 +209,10 @@ void Engine::update()
 	        }
 	        else if (current_asset == 3)
 	        {
-	        	endFlag.setX((input->getMouseX() / 20) * 20);
-	        	endFlag.setY((input->getMouseY() / 20) * 20);
-	        	endFlag.setStartX((input->getMouseX() / 20) * 20);
-	        	endFlag.setStartY((input->getMouseY() / 20) * 20);
+	        	endFlag.setX(input->getMouseX());
+	        	endFlag.setY(input->getMouseY());
+	        	endFlag.setStartX(input->getMouseX());
+	        	endFlag.setStartY(input->getMouseY());
                 mTime = 0;
 	        }
             else if (current_asset == 4)
