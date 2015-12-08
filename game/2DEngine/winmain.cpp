@@ -92,6 +92,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 									// also check the value of the current game ID for the info window, call info window if changed
 			if (infoVal != game->current_asset) {
 				//call the needed things to change the value of the infobox
+				infoVal = game->current_asset;
+				SendMessage((HWND)g_hwndChildren[1], WM_PAINT, NULL, NULL);
 			}
 		}
 		SAFE_DELETE(game);     // free memory before exit
@@ -177,7 +179,7 @@ void UpdateList(HWND Window) {
 			LPCSTR yy = yz.c_str();
 			//LPCSTR name = (string(FileData.cFileName).substr(0, string(FileData.cFileName).find_last_of("."))).c_str();
 			//throw(GameError(gameErrorNS::FATAL_ERROR, " || "));
-			NuObject *temp = new NuObject(Window, yy, 0, run * 20);
+			NuObject *temp = new NuObject(Window, yy, 10, 20 + run * 20);
 
 			List->push_back(temp);
 			run++;
@@ -202,10 +204,16 @@ LRESULT WINAPI Object_Detail(HWND Window,
 	}
 	case WM_PAINT: {
 		{
+			InvalidateRect(Window, NULL, TRUE);
 			PAINTSTRUCT ps;
 			HDC hdct = BeginPaint(Window, &ps);
-			TextOut(hdct, 0 /* X */, 0 /* Y */, "Blah de blah de blah", 20 /* Number of chars */);
+			if(infoVal == 0)TextOut(hdct, 10 /* X */, 0 /* Y */, "Ground: Walk on it", 18 /* Number of chars */);
+			if(infoVal == 1)TextOut(hdct, 10 /* X */, 0 /* Y */, "Bird: Jump on it, or die", 24 /* Number of chars */);
+			if (infoVal == 2)TextOut(hdct, 10 /* X */, 0 /* Y */, "Player: Choose Start Point", 26 /* Number of chars */);
+			if (infoVal == 3)TextOut(hdct, 10 /* X */, 0 /* Y */, "EndFlag: Choose End Point", 25 /* Number of chars */);
+			if (infoVal == 4)TextOut(hdct, 10 /* X */, 0 /* Y */, "Spike: Kills you", 16 /* Number of chars */);
 			EndPaint(Window, &ps);
+			//MessageBox(Window, "Got Here", "OK", MB_OK);
 		}
 		break;
 	}
@@ -230,7 +238,7 @@ LRESULT WINAPI Object_List(HWND Window,
 
 	case WM_CREATE: {
 
-		fileLoad = CreateWindow("EDIT", 0, WS_BORDER | WS_CHILD | WS_VISIBLE, 0, 0, 80, 20, Window, NULL, NULL, 0);
+		fileLoad = CreateWindow("EDIT", 0, WS_BORDER | WS_CHILD | WS_VISIBLE, 10, 10, 80, 20, Window, NULL, NULL, 0);
 
 		//Create the Create New Object button (this may be removed)
 
@@ -238,7 +246,7 @@ LRESULT WINAPI Object_List(HWND Window,
 			TEXT("BUTTON"),					/* Class Name */
 			TEXT("Load File"),             /* Title */
 			WS_VISIBLE | WS_CHILD,          /* Style */
-			80, 0,					/* Position */
+			100, 0,					/* Position */
 			80, 20,							/* Size */
 			Window,                         /* Parent */
 			(HMENU)ID_LOAD,                 /* No menu */
@@ -250,7 +258,7 @@ LRESULT WINAPI Object_List(HWND Window,
 			TEXT("BUTTON"),					/* Class Name */
 			TEXT("Create File"),             /* Title */
 			WS_VISIBLE | WS_CHILD,          /* Style */
-			80, 20,					/* Position */
+			100, 20,					/* Position */
 			80, 20,							/* Size */
 			Window,                         /* Parent */
 			(HMENU)ID_CREATE,                 /* No menu */
@@ -481,7 +489,7 @@ bool CreateMainWindow(HWND &hwnd, HINSTANCE hInstance, int nCmdShow)
 			WS_VISIBLE | WS_BORDER,
 			200,
 			400,
-			200,
+			210,
 			500,
 			NULL,
 			NULL,
@@ -492,12 +500,12 @@ bool CreateMainWindow(HWND &hwnd, HINSTANCE hInstance, int nCmdShow)
 	g_hwndChildren[1] =
 		CreateWindow(
 			details.lpszClassName,
-			"File Browser",
+			"Type Details",
 			WS_VISIBLE | WS_BORDER,
 			700,
 			400,
-			200,
-			500,
+			220,
+			70,
 			NULL,
 			NULL,
 			hInstance,
